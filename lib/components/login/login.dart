@@ -22,113 +22,31 @@ class _LoginState extends State<Login> {
             gradient: LinearGradient(
                 begin: Alignment.topCenter, colors: login_ui_color)),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             spaceArea(height_90),
-            Padding(
-              padding: EdgeInsets.all(height_30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "ARD GRUP",
-                    style:
-                        TextStyle(color: Colors.white, fontSize: font_size_32),
-                  ),
-                  spaceArea(height_10),
-                  Text(
-                    "Hoşgeldin",
-                    style:
-                        TextStyle(color: Colors.white, fontSize: font_size_18),
-                  ),
-                ],
-              ),
-            ),
+            headerArea(),
             spaceArea(height_30),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(radius_size_50),
-                        topRight: Radius.circular(radius_size_50))),
+                  color: mainWhiteColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(radius_size_50),
+                    topRight: Radius.circular(radius_size_50),
+                  ),
+                ),
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: EdgeInsets.all(radius_size_30),
                     child: Column(
                       children: <Widget>[
-                        SizedBox(
-                          height: height_50,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.circular(radius_size_10),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: container_box_shadow,
-                                    blurRadius: radius_size_10,
-                                    offset: Offset(0, 10))
-                              ]),
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.all(radius_size_10),
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom:
-                                            BorderSide(color: Colors.grey))),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                      hintText: "E-mail",
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                      border: InputBorder.none),
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(height_10),
-                                decoration: BoxDecoration(border: Border()),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                      hintText: "Şifre",
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                      border: InputBorder.none),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(height_10),
-                              child: Text(
-                                "Şifremi unuttum",
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                            ),
-                          ],
-                        ),
                         spaceArea(height_50),
-                        Container(
-                          height: height_50,
-                          margin: EdgeInsets.symmetric(horizontal: height_50),
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.circular(radius_size_10),
-                              color: Color.fromARGB(255, 55, 82, 255)),
-                          child: Center(
-                            child: Text(
-                              "Giriş",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: font_size_18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
+                        inputArea(),
+                        spaceArea(height_50),
+                        loginArea(),
+                        customDivider(null),
+                        forgetPasswordArea()
                       ],
                     ),
                   ),
@@ -138,6 +56,104 @@ class _LoginState extends State<Login> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget inputArea() {
+    return Container(
+      decoration: BoxDecoration(
+          color: mainWhiteColor,
+          borderRadius: BorderRadius.circular(radius_size_10),
+          boxShadow: [
+            BoxShadow(
+                color: container_box_shadow,
+                blurRadius: radius_size_10,
+                offset: Offset(radius_size_0, radius_size_10))
+          ]),
+      child: Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(radius_size_10),
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: mainGreyColor))),
+            child: TextField(
+              decoration: InputDecoration(
+                  hintText: "E-mail",
+                  hintStyle: TextStyle(color: mainGreyColor),
+                  border: InputBorder.none),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(height_10),
+            decoration: BoxDecoration(border: Border()),
+            child: TextField(
+              decoration: InputDecoration(
+                  hintText: "Şifre",
+                  hintStyle: TextStyle(color: mainGreyColor),
+                  border: InputBorder.none),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget forgetPasswordArea() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: EdgeInsets.all(height_3),
+          child: Text(
+            "Şifremi unuttum",
+            style: TextStyle(color: mainGreyColor),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget loginArea() {
+    return Container(
+      height: height_50,
+      margin: EdgeInsets.symmetric(horizontal: height_50),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(radius_size_10),
+          color: mainColor),
+      child: Center(
+        child: Text(
+          "Giriş",
+          style: TextStyle(
+              color: mainWhiteColor,
+              fontSize: font_size_18,
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+
+  Widget headerArea() {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(ard_logo_url),
+          ],
+        ),
+        Padding(
+          padding: EdgeInsets.all(height_10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "Hoşgeldin",
+                style: TextStyle(color: mainWhiteColor, fontSize: font_size_24),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
