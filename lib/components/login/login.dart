@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/providers/login_provider.dart';
 
-import '../../common/global_utils.dart';
-import '../../common/utils.dart';
+import '../../utils/global_utils.dart';
+import '../../utils/utils.dart';
 import '../../widgets/commons.dart';
-import 'listview.dart';
+import '../list_view/list_view.dart';
 import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
@@ -33,9 +33,9 @@ class _LoginState extends State<Login> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              spaceArea(height_90),
-              headerArea(),
               spaceArea(height_30),
+              headerArea(),
+              spaceArea(height_10),
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
@@ -47,12 +47,12 @@ class _LoginState extends State<Login> {
                   ),
                   child: SingleChildScrollView(
                     child: Padding(
-                      padding: EdgeInsets.all(radius_size_30),
+                      padding:
+                          EdgeInsets.only(left: height_30, right: height_30),
                       child: Column(
                         children: <Widget>[
                           spaceArea(height_50),
                           inputArea(),
-                          spaceArea(height_50),
                         ],
                       ),
                     ),
@@ -76,7 +76,7 @@ class _LoginState extends State<Login> {
             Container(
               decoration: BoxDecoration(
                   color: mainWhiteColor,
-                  borderRadius: BorderRadius.circular(radius_size_10),
+                  borderRadius: BorderRadius.circular(radius_size_30),
                   boxShadow: [
                     BoxShadow(
                         color: container_box_shadow,
@@ -115,7 +115,7 @@ class _LoginState extends State<Login> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: height_30),
+              padding: EdgeInsets.only(top: height_50),
               child: InkWell(
                 onTap: () {
                   if (_loginFormKey.currentState!.validate()) {

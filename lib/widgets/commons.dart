@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../common/utils.dart';
+import '../utils/utils.dart';
 
 //Boşluk bırakmak için kullanılacak olan widget
 // [...] => opsiyonel kullanım

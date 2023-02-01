@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_introduction_app_ard_grup/common/global_utils.dart';
+
+import '../../utils/global_utils.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({super.key});

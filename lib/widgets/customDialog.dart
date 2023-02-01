@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables,prefer_const_constructors,prefer_const_literals_to_create_immutables,file_names,constant_identifier_names,unnecessary_new
 
 import 'package:flutter/material.dart';
-import 'package:flutter_introduction_app_ard_grup/common/utils.dart';
+import 'package:flutter_introduction_app_ard_grup/utils/utils.dart';
 
 class CustomDialog extends StatelessWidget {
   final String description, confirmButtonText;

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/components/login/login.dart';
-
 import '../widgets/customDialog.dart';
 
 Future logout(BuildContext context) async {
