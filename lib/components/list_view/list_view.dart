@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_introduction_app_ard_grup/utils/utils.dart';
+import 'package:flutter_introduction_app_ard_grup/widgets/customListTile.dart';
 
 import '../../utils/global_utils.dart';
 
@@ -16,7 +18,21 @@ class _ListScreenState extends State<ListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(context),
-      body: Column(),
+      body: Padding(
+        padding: EdgeInsets.all(height_10),
+        child: Column(
+          children: [
+            AppListTileWithAvatar(
+              icon: Icons.info,
+              transactionName: "1",
+              transactionAmount: "2",
+              transactionAmountHeight: 40,
+              transactionIcon: "32",
+              transactionType: "4",
+            )
+          ],
+        ),
+      ),
     );
   }
 }

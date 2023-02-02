@@ -2,24 +2,23 @@
 
 //HTTP SONUC MODELİ KULLANILAN SİSTEME GÖRE DEĞİŞTİRİLEBİLİR.
 class httpSonucModel {
-  dynamic responseData;
+  dynamic data;
   bool? success;
   String? message;
-  bool? logOut = false;
 
-  httpSonucModel(
-      {required this.responseData,
-      required this.success,
-      required this.message,
-      this.logOut});
+  httpSonucModel({
+    required this.data,
+    required this.success,
+    required this.message,
+  });
 
   httpSonucModel.fromJsonData(Map<String, dynamic> data)
-      : responseData = data['responseData'],
+      : data = data['data'],
         success = data['success'];
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['responseData'] = responseData;
+    data['data'] = data;
     data['success'] = success;
     return data;
   }

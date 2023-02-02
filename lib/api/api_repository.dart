@@ -121,62 +121,65 @@ class APIRepository {
           await dioClient!.get(controller!, queryParameters: queryParameters);
       if (response != null) {
         return httpSonucModel(
-            responseData: response,
-            success: true,
-            message: 'Başarılı',
-            logOut: false);
+          data: response,
+          success: true,
+          message: 'Başarılı',
+        );
       }
       return httpSonucModel(
-          responseData: response,
-          success: false,
-          message: 'Hata',
-          logOut: false);
+        data: response,
+        success: false,
+        message: 'Hata',
+      );
     } on DioError catch (e) {
       if (DioErrorType.other == e.type) {
         return httpSonucModel(
-            responseData: {},
-            success: false,
-            message: "Bağlantı Hatası",
-            logOut: false);
+          data: {},
+          success: false,
+          message: "Bağlantı Hatası",
+        );
       }
       if (DioErrorType.response == e.type) {
         if (e.response!.statusCode == 401) {
           return httpSonucModel(
-              success: false,
-              message: "Yetkisiz Erişim",
-              responseData: {},
-              logOut: true);
+            success: false,
+            message: "Yetkisiz Erişim",
+            data: {},
+          );
         }
         return httpSonucModel(
-            responseData: {},
-            success: false,
-            message: "İstek hatası",
-            logOut: false);
+          data: {},
+          success: false,
+          message: "İstek hatası",
+        );
       }
       if (DioErrorType.connectTimeout == e.type) {
         return httpSonucModel(
-            responseData: {},
-            success: false,
-            message: "Sistem zaman aşımına uğradı",
-            logOut: false);
+          data: {},
+          success: false,
+          message: "Sistem zaman aşımına uğradı",
+        );
       }
       if (DioErrorType.sendTimeout == e.type) {
         return httpSonucModel(
-            responseData: {},
-            success: false,
-            message: "Sistem zaman aşımına uğradı",
-            logOut: false);
+          data: {},
+          success: false,
+          message: "Sistem zaman aşımına uğradı",
+        );
       }
       if (e.response != null) {
         return httpSonucModel(
-            responseData: {}, success: false, message: 'Hata', logOut: false);
+          data: {},
+          success: false,
+          message: 'Hata',
+        );
       } else {
         //Hata dönüşü
         return httpSonucModel(
-            responseData: {},
-            success: false,
-            message: e.message,
-            logOut: false);
+          data: {},
+          success: false,
+          message: e.message,
+        );
       }
     }
   }
@@ -188,71 +191,74 @@ class APIRepository {
       Map<String, dynamic>? queryParameters,
       bool redirectLogin = false}) async {
     var result = httpSonucModel(
-        responseData: {}, success: true, message: "Başarılı", logOut: false);
+      data: {},
+      success: true,
+      message: "Başarılı",
+    );
     try {
       ReloadApiBase(StaticVariables.token);
       final response =
           await dioClient!.get(controller!, queryParameters: queryParameters);
       if (response != null) {
         return httpSonucModel(
-            responseData: response,
-            success: true,
-            message: "Başarılı",
-            logOut: false);
+          data: response,
+          success: true,
+          message: "Başarılı",
+        );
       }
       return httpSonucModel(
-          responseData: response,
-          success: false,
-          message: "Başarısız",
-          logOut: false);
+        data: response,
+        success: false,
+        message: "Başarısız",
+      );
     } on DioError catch (e) {
       if (DioErrorType.other == e.type) {
         return httpSonucModel(
-            responseData: {},
-            success: false,
-            message: "Bağlantı Hatası",
-            logOut: false);
+          data: {},
+          success: false,
+          message: "Bağlantı Hatası",
+        );
       }
       if (DioErrorType.response == e.type) {
         if (e.response!.statusCode == 401) {
           return httpSonucModel(
-              success: false,
-              message: "Yetkisiz Erişim",
-              responseData: {},
-              logOut: true);
+            success: false,
+            message: "Yetkisiz Erişim",
+            data: {},
+          );
         }
         return httpSonucModel(
-            responseData: {},
-            success: false,
-            message: "İstek hatası",
-            logOut: false);
+          data: {},
+          success: false,
+          message: "İstek hatası",
+        );
       }
       if (DioErrorType.connectTimeout == e.type) {
         return httpSonucModel(
-            responseData: {},
-            success: false,
-            message: "Sistem zaman aşımına uğradı",
-            logOut: false);
+          data: {},
+          success: false,
+          message: "Sistem zaman aşımına uğradı",
+        );
       }
       if (DioErrorType.sendTimeout == e.type) {
         return httpSonucModel(
-            responseData: {},
-            success: false,
-            message: "Sistem zaman aşımına uğradı",
-            logOut: false);
+          data: {},
+          success: false,
+          message: "Sistem zaman aşımına uğradı",
+        );
       }
       if (e.response != null) {
         return httpSonucModel(
-            responseData: {},
-            success: false,
-            message: e.message,
-            logOut: false);
+          data: {},
+          success: false,
+          message: e.message,
+        );
       } else {
         return httpSonucModel(
-            responseData: {},
-            success: false,
-            message: e.message,
-            logOut: false);
+          data: {},
+          success: false,
+          message: e.message,
+        );
       }
     }
   }
@@ -308,27 +314,27 @@ encode(String zipText) {
 //     } on DioError catch (e) {
 //       if (DioErrorType.other == e.type) {
 //         return Model_İsmi(
-//             basariDurumu: false, aciklama: "Bağlantı Hatası", logOut: false);
+//             basariDurumu: false, aciklama: "Bağlantı Hatası", );
 //       }
 //       if (DioErrorType.response == e.type) {
 //         if (e.response!.statusCode == 401) {
 //           return Model_İsmi(
-//               basariDurumu: false, aciklama: "Yetkisiz Erişim", logOut: true);
+//               basariDurumu: false, aciklama: "Yetkisiz Erişim",);
 //         }
 //         return Model_İsmi(
-//             basariDurumu: false, aciklama: "İstek hatası", logOut: false);
+//             basariDurumu: false, aciklama: "İstek hatası", );
 //       }
 //       if (DioErrorType.connectTimeout == e.type) {
 //         return Model_İsmi(
 //             basariDurumu: false,
 //             aciklama: "Sistem zaman aşımına uğradı",
-//             logOut: false);
+//             );
 //       }
 //       if (DioErrorType.sendTimeout == e.type) {
 //         return Model_İsmi(
 //             basariDurumu: false,
 //             aciklama: "Sistem zaman aşımına uğradı",
-//             logOut: false);
+//             );
 //       }
 //       if (e.response != null) {
 //         print('Dio error!');
@@ -340,10 +346,10 @@ encode(String zipText) {
 //         print('Error sending request!');
 //         print(e.message);
 //         return Model_İsmi(
-//             basariDurumu: false, aciklama: e.message, logOut: false);
+//             basariDurumu: false, aciklama: e.message, );
 //       }
 //       return Model_İsmi(
-//           basariDurumu: false, aciklama: e.message, logOut: false);
+//           basariDurumu: false, aciklama: e.message, );
 //     }
 //   }
 

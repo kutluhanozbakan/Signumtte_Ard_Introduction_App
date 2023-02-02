@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer__ructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
@@ -6,19 +6,19 @@ import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 import '../utils/styles_themes.dart';
 import 'customIconButtonSmall.dart';
 
-class OcasListTile extends StatefulWidget {
+class AppListTile extends StatefulWidget {
   final IconData? icon;
   final String baslik;
   final String icerik;
-  const OcasListTile(
+  AppListTile(
       {Key? key, this.icon, this.baslik = "Başlık", this.icerik = "İçerik"})
       : super(key: key);
 
   @override
-  State<OcasListTile> createState() => _OcasListTileState();
+  State<AppListTile> createState() => _AppListTileState();
 }
 
-class _OcasListTileState extends State<OcasListTile> {
+class _AppListTileState extends State<AppListTile> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -42,7 +42,7 @@ class _OcasListTileState extends State<OcasListTile> {
   }
 }
 
-class OcasListTileHeader extends StatefulWidget {
+class AppListTileHeader extends StatefulWidget {
   final String baslik;
   final List<Widget> icerik;
   final VoidCallback onPressed;
@@ -50,7 +50,7 @@ class OcasListTileHeader extends StatefulWidget {
   final IconData icon;
   final Color? buttonColor;
 
-  const OcasListTileHeader({
+  AppListTileHeader({
     Key? key,
     required this.icerik,
     this.baslik = "kart başlığı giriniz",
@@ -61,10 +61,10 @@ class OcasListTileHeader extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<OcasListTileHeader> createState() => _OcasListTileHeaderState();
+  State<AppListTileHeader> createState() => _AppListTileHeaderState();
 }
 
-class _OcasListTileHeaderState extends State<OcasListTileHeader> {
+class _AppListTileHeaderState extends State<AppListTileHeader> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -72,7 +72,7 @@ class _OcasListTileHeaderState extends State<OcasListTileHeader> {
       color: APPColors.Accent.grey,
       child: Column(children: [
         Padding(
-          padding: const EdgeInsets.all(7.0),
+          padding: EdgeInsets.all(7.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -101,7 +101,7 @@ class _OcasListTileHeaderState extends State<OcasListTileHeader> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.0),
           child: Column(children: widget.icerik),
         ),
       ]),
@@ -109,7 +109,7 @@ class _OcasListTileHeaderState extends State<OcasListTileHeader> {
   }
 }
 
-class OcasListTileWithAvatar extends StatelessWidget {
+class AppListTileWithAvatar extends StatelessWidget {
   final Color? iconColor;
   final IconData? icon;
   final String? transactionName,
@@ -118,7 +118,7 @@ class OcasListTileWithAvatar extends StatelessWidget {
       transactionIcon;
   final GestureTapCallback? onTap;
   final int? transactionAmountHeight;
-  const OcasListTileWithAvatar({
+  AppListTileWithAvatar({
     Key? key,
     this.iconColor,
     this.transactionName,
@@ -152,7 +152,7 @@ class OcasListTileWithAvatar extends StatelessWidget {
           ],
         ),
         trailing: Padding(
-          padding: const EdgeInsets.all(0.0),
+          padding: EdgeInsets.all(0.0),
           child: Column(
             children: [
               Padding(

@@ -19,9 +19,8 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
-GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
-
 class _LoginState extends State<Login> {
+  GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

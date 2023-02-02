@@ -34,7 +34,7 @@ extension APPColorsExtension on APPColors {
   Color get blue {
     switch (this) {
       case APPColors.Main:
-        return const Color(0xff025273); //0xff1c5794
+        return Color.fromARGB(255, 48, 105, 211); //0xff1c5794
       default:
         return const Color(0xff4a6572);
     }
