@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/components/list_view/list_view.dart';
+import 'package:flutter_introduction_app_ard_grup/components/main_page_view/main_page_view.dart';
 import 'package:flutter_introduction_app_ard_grup/models/user.model.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/global_utils.dart';
 
@@ -44,8 +45,8 @@ class RegistrationProvider extends ChangeNotifier {
     UserResult apiresult = await apirepository.login(
         userName: userName, password: password, rememberMe: rememberMe);
     if (apiresult.success!) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: ((context) => const ListScreen())));
+      Navigator.push(
+          context, MaterialPageRoute(builder: ((context) => const MainPage())));
     } else {
       baglantiHatasi(context, "Kullanıcı girişi başarısız");
     }

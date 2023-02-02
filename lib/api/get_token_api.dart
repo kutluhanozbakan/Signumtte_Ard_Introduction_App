@@ -2,6 +2,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_introduction_app_ard_grup/components/main_page_view/main_page_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/list_view/list_view.dart';
 import '../components/login/login.dart';
@@ -46,8 +47,8 @@ void tokenGet(BuildContext context) async {
         rememberMe: false);
 
     if (apiResult.success!) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: ((context) => const ListScreen())));
+      Navigator.push(
+          context, MaterialPageRoute(builder: ((context) => const MainPage())));
     }
   } else {
     //token bilgisi yok ise login ekranına gönderilir.
