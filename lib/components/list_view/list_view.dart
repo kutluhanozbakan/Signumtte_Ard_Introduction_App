@@ -1,6 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/utils.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/customListTile.dart';
 

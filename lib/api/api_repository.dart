@@ -5,7 +5,7 @@ import 'package:archive/archive.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/api/static_variables.dart';
-import 'package:jwt_decode/jwt_decode.dart';
+import 'package:flutter_introduction_app_ard_grup/utils/api_urls.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/http_response.model.dart';
 import '../models/user.model.dart';
@@ -14,8 +14,8 @@ import '../services/dio/DioClient.dart';
 class APIRepository {
   DioClient? dioClient;
   //Canlıya geçileceği zaman kullanılıcak Url
-  //final String _baseUrl = "";
-  final String _baseUrl = "https://digipay-test.ardsistem.com.tr/api/";
+  //final String _baseUrl = BASE_URL;
+  final String _baseUrl = BASE_URL;
 
 //Servisten gelen cevap için bekleme süresi
 //İleride değiştirilebilir.
