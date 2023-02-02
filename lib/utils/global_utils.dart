@@ -1,10 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/components/login/login.dart';
 import '../widgets/customAlertDialog.dart';
 import '../widgets/customDialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future logout(BuildContext context) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   showDialog(
       barrierDismissible: true,
       context: context,
@@ -15,6 +19,7 @@ Future logout(BuildContext context) async {
             confirmButtonText: "Evet",
             description: "Uygulamadan çıkış yapılacaktır onaylıyor musunuz?",
             okFunction: () async {
+              prefs.clear();
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => Login()),
@@ -27,8 +32,7 @@ Future logout(BuildContext context) async {
 
 void baglantiHatasi(BuildContext context, String? message) async {
   CustomAlertDialogOnlyConfirm(context, () {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: ((context) => Login())));
+    Navigator.pop(context);
   }, "Bir hata meydana geldi.", message!, ArtSweetAlertType.danger, "Tamam");
 }
 

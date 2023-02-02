@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/providers/login_provider.dart';
+import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
+import 'package:flutter_introduction_app_ard_grup/widgets/customButton.dart';
+import 'package:flutter_introduction_app_ard_grup/widgets/customTextFormField.dart';
 
 import '../../utils/global_utils.dart';
 import '../../utils/utils.dart';
@@ -33,7 +36,7 @@ class _LoginState extends State<Login> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              spaceArea(height_30),
+              spaceArea(height_50),
               headerArea(),
               spaceArea(height_10),
               Expanded(
@@ -76,42 +79,41 @@ class _LoginState extends State<Login> {
             Container(
               decoration: BoxDecoration(
                   color: mainWhiteColor,
-                  borderRadius: BorderRadius.circular(radius_size_30),
+                  borderRadius: BorderRadius.circular(radius_size_10),
                   boxShadow: [
                     BoxShadow(
                         color: container_box_shadow,
                         blurRadius: radius_size_10,
                         offset: Offset(radius_size_0, radius_size_10))
                   ]),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(radius_size_10),
-                    decoration: BoxDecoration(
-                        border:
-                            Border(bottom: BorderSide(color: mainGreyColor))),
-                    child: TextFormField(
-                      validator: formEmail,
-                      controller: loginProvider.userName,
-                      decoration: InputDecoration(
-                          hintText: "E-mail",
-                          hintStyle: TextStyle(color: mainGreyColor),
-                          border: InputBorder.none),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(height_10),
-                    decoration: BoxDecoration(border: Border()),
-                    child: TextFormField(
-                      validator: formPassword,
-                      controller: loginProvider.password,
-                      decoration: InputDecoration(
-                          hintText: "Şifre",
-                          hintStyle: TextStyle(color: mainGreyColor),
-                          border: InputBorder.none),
-                    ),
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(height_10),
+                child: Column(
+                  children: <Widget>[
+                    OcasTextFormFieldContent(
+                        controller: loginProvider.userName,
+                        name: "E-mail",
+                        validator: formEmail,
+                        isIcon: true),
+                    OcasTextFormFieldContent(
+                        controller: loginProvider.password,
+                        name: "Şifre",
+                        validator: formBos,
+                        obscureText: loginProvider.passwordVisible,
+                        icon: Icons.password,
+                        isSuffix: true,
+                        suffixIcon: loginProvider.passwordVisible
+                            ? Icons.remove_red_eye_sharp
+                            : Icons.remove_red_eye_outlined,
+                        onSuffixTap: () {
+                          setState(() {
+                            loginProvider.setPasswordVisible =
+                                !loginProvider.passwordVisible;
+                          });
+                        },
+                        isIcon: true),
+                  ],
+                ),
               ),
             ),
             Row(
@@ -126,34 +128,22 @@ class _LoginState extends State<Login> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.only(top: height_50),
-              child: InkWell(
-                onTap: () {
-                  if (_loginFormKey.currentState!.validate()) {
-                    loginProvider.userLogin(
-                        loginProvider.userName.text,
-                        loginProvider.password.text,
-                        context,
-                        loginProvider.rememberMe);
-                  }
-                },
-                child: Container(
-                  height: height_50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(radius_size_10),
-                      color: mainColor),
-                  child: Center(
-                    child: Text(
-                      "Giriş",
-                      style: TextStyle(
-                          color: mainWhiteColor,
-                          fontSize: font_size_18,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-              ),
-            )
+                padding: EdgeInsets.only(top: height_50),
+                child: AppButton(
+                  isIcon: false,
+                  colors: APPColors.Main.blue,
+                  name: "Giriş",
+                  onTap: () {
+                    if (_loginFormKey.currentState!.validate()) {
+                      loginProvider.userLogin(
+                          loginProvider.userName.text,
+                          loginProvider.password.text,
+                          context,
+                          loginProvider.rememberMe);
+                    }
+                  },
+                  textColor: APPColors.Main.white,
+                ))
           ],
         ),
       );

@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   jwt_decode: ^0.3.1
   art_sweetalert: ^0.0.5
+  flutter_datetime_picker: ^1.5.1
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:

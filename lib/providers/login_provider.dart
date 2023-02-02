@@ -12,8 +12,10 @@ class RegistrationProvider extends ChangeNotifier {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   bool? _rememberMe = false;
+  bool? _passwordVisible = false;
 
   bool get rememberMe => _rememberMe!;
+  bool get passwordVisible => _passwordVisible!;
   TextEditingController get userName => _emailController;
   TextEditingController get password => _passwordController;
 
@@ -29,6 +31,11 @@ class RegistrationProvider extends ChangeNotifier {
 
   set setRememberMe(bool remember) {
     _rememberMe = remember;
+    notifyListeners();
+  }
+
+  set setPasswordVisible(bool passwordVisible) {
+    _passwordVisible = passwordVisible;
     notifyListeners();
   }
 
