@@ -1,15 +1,13 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, depend_on_referenced_packages, prefer_final_fields
 
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/providers/login_provider.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/customButton.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/customTextFormField.dart';
-
 import '../../utils/global_utils.dart';
 import '../../utils/utils.dart';
 import '../../widgets/commons.dart';
-import '../list_view/list_view.dart';
 import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
