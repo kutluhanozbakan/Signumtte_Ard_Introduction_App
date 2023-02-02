@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/list_view/list_view.dart';
 import '../components/login/login.dart';
-import '../utils/constants.dart';
 import 'api_repository.dart';
 import 'dart:convert';
 import 'package:archive/archive.dart';
@@ -20,12 +19,6 @@ void tokenGet(BuildContext context) async {
   //local storage bilgileri çekiliyor.
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var token = prefs.getString("Token");
-  var userID = prefs.getString("UserId");
-  var fName = prefs.getString("family_name");
-  var givenName = prefs.getString("given_name");
-  bool isBaro = (prefs.getBool("isBaro") ?? false);
-  bool isAdmin = (prefs.getBool("isAdmin") ?? false);
-  bool isKurum = (prefs.getBool("isKurum") ?? false);
   var userName = prefs.getString("cryptedUserName");
   var password = prefs.getString("cryptedPassword");
 
@@ -41,29 +34,20 @@ void tokenGet(BuildContext context) async {
     //decode edilen bilgiler statik olarak uygulama içerisinde kullanılmak üzere kayıt ediliyor.
     //Web uygulamalarda bulunan session storage olarak düşünülebilir.
 
-    StaticVariables.userId = int.parse(userID!);
-    StaticVariables.family_name = fName!;
-    StaticVariables.given_name = givenName!;
     StaticVariables.token = token;
-    StaticVariables.isAdmin = isAdmin;
-    StaticVariables.isBaro = isBaro;
-    StaticVariables.isKurum = isKurum;
 
     //Eğer uygulama uzun süre kullanılmamış ve kullanılan tokenın bir lifetime süresi var ise kullanıcıya login ekranı gösterilmeden
     //login ederek uygulama içerisine giriş yaptırılır.
     //opsiyonel
 
     UserResult apiResult = await apirepository.login(
-      userName: decodedUserName,
-      password: decodedPassword,
-      rememberMe: rememberMe,
-    );
+        userName: decodedUserName,
+        password: decodedPassword,
+        rememberMe: false);
 
     if (apiResult.success!) {
       Navigator.push(context,
           MaterialPageRoute(builder: ((context) => const ListScreen())));
-    } else {
-      prefs.clear();
     }
   } else {
     //token bilgisi yok ise login ekranına gönderilir.

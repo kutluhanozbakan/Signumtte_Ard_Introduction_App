@@ -5,6 +5,7 @@ import 'package:archive/archive.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/api/static_variables.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/http_response.model.dart';
 import '../models/user.model.dart';
@@ -14,7 +15,7 @@ class APIRepository {
   DioClient? dioClient;
   //Canlıya geçileceği zaman kullanılıcak Url
   //final String _baseUrl = "";
-  final String _baseUrl = "";
+  final String _baseUrl = "https://digipay-test.ardsistem.com.tr/api/";
 
 //Servisten gelen cevap için bekleme süresi
 //İleride değiştirilebilir.
@@ -45,87 +46,67 @@ class APIRepository {
   Future<UserResult> login(
       {@required String? userName,
       @required String? password,
-      bool rememberMe = false}) async {
+      @required bool? rememberMe}) async {
     try {
-      var result = UserResult(mesaj: "Başarili", logOut: false);
+      var result = UserResult(message: "Başarili", success: true);
 
       await ReloadApiBase("");
 
       Future.delayed(const Duration(seconds: 2)).whenComplete(() {});
       //Kullanılacak servisin içeriğine göre içerik değiştirilebilir.
-      final response = await dioClient!.post("Login", data: {
-        "kullaniciAdi": userName,
-        "sifre": password,
-        "mobil": "1",
+      final response = await dioClient!.post("v1/Auth/Login", data: {
+        "userName": userName,
+        "password": password,
       });
       //Gelen response değerinin durumuna göre kontroller sağlanabilir.
-      if (response['Hata'] != null) {
-        result.mesaj =
-            response['Aciklama'] ?? response['Mesaj'] ?? "Giris Hatasi";
+      if (response['statusCode'] != 200) {
+        result.message =
+            response['message'] ?? response['message'] ?? "Giris Hatasi";
         return UserResult(
-            mesaj: result.mesaj,
-            user: result.user,
-            success: false,
-            logOut: false);
-      } else if (response['basariDurumu'] == false) {
-        result.user = User.fromJson(response);
-        return UserResult(
-            mesaj: response['mesaj'],
-            user: result.user,
-            success: false,
-            logOut: false);
+          message: result.message,
+          data: result.data,
+          success: result.success,
+        );
       } else {
-        response['sifre'] = password;
-        response['rememberMe'] = rememberMe;
-
-        result.user = User.fromJson(response);
-        if (result.user!.OTP_GEREKLI!) {
-          return UserResult(
-              logOut: false,
-              mesaj: result.mesaj,
-              success: true,
-              user: result.user);
-        } else {
-          ReloadApiBase(result.user!.token!);
+        result.data = userData.fromJson(response['data']);
+        if (result.data != null) {
+          ReloadApiBase(result.data!.token!);
           String userString = json.encode(response);
-
-          saveToken(result.user!);
+          print(userString);
+          saveToken(userName!, password!, result.data!.token!);
           if (rememberMe != false) {
             rememberMeOption();
           }
+          return UserResult(
+            message: result.message,
+            data: result.data,
+            success: result.success,
+          );
         }
       }
-
-      return UserResult(
-          mesaj: result.mesaj, user: result.user, success: true, logOut: true);
     } on DioError catch (e) {
       if (DioErrorType.response == e.type) {
         if (e.response!.statusCode == 401) {
-          return UserResult(
-              success: false, mesaj: "Yetkisiz Erişim", logOut: true);
+          return UserResult(success: false, message: "Yetkisiz Erişim");
         }
-        return UserResult(success: false, mesaj: "İstek hatası", logOut: true);
+        return UserResult(success: false, message: "İstek hatası");
       }
 
       if (DioErrorType.connectTimeout == e.type) {
-        return UserResult(
-            success: false, mesaj: "Sistem zaman aşımına uğradı", logOut: true);
+        return UserResult(success: false, message: "Zaman Aşımı");
       }
       if (DioErrorType.sendTimeout == e.type) {
-        return UserResult(
-            success: false, mesaj: "Sistem zaman aşımına uğradı", logOut: true);
+        return UserResult(success: false, message: "Zaman Aşımı");
       }
       if (DioErrorType.other == e.type) {
-        return UserResult(
-            success: false, mesaj: "Bağlantı Hatası", logOut: true);
+        return UserResult(success: false, message: "Bağlantı Hatası");
       }
       if (e.response != null) {
       } else {
-        return UserResult(
-            mesaj: e.message, user: null, success: false, logOut: false);
+        return UserResult(success: false, message: "Yetkisiz Erişim");
       }
     }
-    return UserResult(mesaj: "hata", user: null, success: false, logOut: false);
+    return UserResult(success: false, message: "Yetkisiz Erişim");
   }
 
 //sayfalama get metodu
@@ -282,42 +263,24 @@ class APIRepository {
 void rememberMeOption() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setString("Token", StaticVariables.token);
-  await prefs.setString("UserId", StaticVariables.userId.toString());
-  await prefs.setString("given_name", StaticVariables.given_name);
-  await prefs.setString("family_name", StaticVariables.family_name);
-  await prefs.setBool("isBaro", StaticVariables.isBaro);
-  await prefs.setBool("isAdmin", StaticVariables.isAdmin);
-  await prefs.setBool("isKurum", StaticVariables.isKurum);
-  await prefs.setString("kurumAdi", StaticVariables.kurumAdi);
   await prefs.setString("cryptedUserName", StaticVariables.cryptedUserName);
   await prefs.setString("cryptedPassword", StaticVariables.cryptedPassword);
-  await prefs.setString("userLogo", StaticVariables.userLogo);
-  await prefs.setString("baroLogo", StaticVariables.baroLogo);
-  await prefs.setInt("baroID", StaticVariables.baroID);
 }
 
 //Kullanıcı giriş yaptıktan sonra gelen tokenı local storage üzerinde kayıt edilmesini sağlayan alan
-void saveToken(User user) async {
+void saveToken(String username, String password, String token) {
   //Uygulama güvenliği için gelen kullanıcı kayıtları hashed edilir.
-  var stringBytesSifre = utf8.encode(user.sifre!);
-  var stringBytesKadi = utf8.encode(user.kullaniciAdi!);
+
+  var stringBytesSifre = utf8.encode(password);
+  var stringBytesKadi = utf8.encode(username);
   var gzipBytesSifre = GZipEncoder().encode(stringBytesSifre);
   var gzipBytesKadi = GZipEncoder().encode(stringBytesKadi);
   var stringEncodedSifre = base64.encode(gzipBytesSifre!);
   var stringEncodedKadi = base64.encode(gzipBytesKadi!);
+
   StaticVariables.cryptedPassword = stringEncodedSifre;
   StaticVariables.cryptedUserName = stringEncodedKadi;
-  StaticVariables.kurumAdi = user.baroAdi ?? " ";
-  StaticVariables.baroLogo = user.baroLogoBase64 ?? "";
-  StaticVariables.userLogo = user.avatarBase64 ?? "";
-  StaticVariables.baroID = user.baroID ?? 0;
-  StaticVariables.token = user.token!;
-  StaticVariables.family_name = user.adi!;
-  StaticVariables.given_name = user.soyadi!;
-  StaticVariables.userId = user.kullaniciID!;
-  StaticVariables.isAdmin = user.isAdmin!;
-  StaticVariables.isBaro = user.isBaro!;
-  StaticVariables.isKurum = user.isKurum!;
+  StaticVariables.token = token;
 }
 
 //Şifreler hashed olarak tutulması gerektiği için encode ediliyor.

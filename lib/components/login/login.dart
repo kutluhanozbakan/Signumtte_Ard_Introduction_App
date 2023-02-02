@@ -114,16 +114,27 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text("Beni hatırla"),
+                Checkbox(
+                    value: loginProvider.rememberMe,
+                    onChanged: (val) {
+                      loginProvider.setRememberMe = !loginProvider.rememberMe;
+                    }),
+              ],
+            ),
             Padding(
               padding: EdgeInsets.only(top: height_50),
               child: InkWell(
                 onTap: () {
                   if (_loginFormKey.currentState!.validate()) {
                     loginProvider.userLogin(
-                      loginProvider.userName.text,
-                      loginProvider.password.text,
-                      context,
-                    );
+                        loginProvider.userName.text,
+                        loginProvider.password.text,
+                        context,
+                        loginProvider.rememberMe);
                   }
                 },
                 child: Container(

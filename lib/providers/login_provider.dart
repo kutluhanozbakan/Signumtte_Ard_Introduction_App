@@ -10,7 +10,9 @@ class RegistrationProvider extends ChangeNotifier {
   final apirepository = APIRepository();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  bool? _rememberMe = false;
 
+  bool get rememberMe => _rememberMe!;
   TextEditingController get userName => _emailController;
   TextEditingController get password => _passwordController;
 
@@ -24,25 +26,20 @@ class RegistrationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  userLogin(
-    String userName,
-    String password,
-    BuildContext context,
-  ) async {
-    Navigator.push(
-        context, MaterialPageRoute(builder: ((context) => const ListScreen())));
-    //Servis gelince açılacak TODO
-    // UserResult apiresult = await apirepository.login(
-    //     userName: userName, password: password, rememberMe: false);
-    // if (apiresult.success!) {
-    //   // ignore: use_build_context_synchronously
-    //   Navigator.push(context,
-    //       MaterialPageRoute(builder: ((context) => const ListScreen())));
+  set setRememberMe(bool remember) {
+    _rememberMe = remember;
+    notifyListeners();
+  }
 
-    //   // Navigator.push(context,
-    //   //     MaterialPageRoute(builder: ((context) => const Anasayfa())));
-    // } else {
-    //   print("Hata");
-    // }
+  userLogin(String userName, String password, BuildContext context,
+      bool rememberMe) async {
+    UserResult apiresult = await apirepository.login(
+        userName: userName, password: password, rememberMe: rememberMe);
+    if (apiresult.success!) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: ((context) => const ListScreen())));
+    } else {
+      print("Hata");
+    }
   }
 }
