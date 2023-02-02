@@ -1,8 +1,9 @@
-// ignore_for_file: prefer_final_fields
+// ignore_for_file: prefer_final_fields, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/components/list_view/list_view.dart';
 import 'package:flutter_introduction_app_ard_grup/models/user.model.dart';
+import 'package:flutter_introduction_app_ard_grup/utils/global_utils.dart';
 
 import '../api/api_repository.dart';
 
@@ -39,7 +40,7 @@ class RegistrationProvider extends ChangeNotifier {
       Navigator.push(context,
           MaterialPageRoute(builder: ((context) => const ListScreen())));
     } else {
-      print("Hata");
+      baglantiHatasi(context, "Kullanıcı girişi başarısız");
     }
   }
 }

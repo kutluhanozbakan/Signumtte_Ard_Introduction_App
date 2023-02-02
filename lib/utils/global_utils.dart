@@ -1,5 +1,7 @@
+import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/components/login/login.dart';
+import '../widgets/customAlertDialog.dart';
 import '../widgets/customDialog.dart';
 
 Future logout(BuildContext context) async {
@@ -21,6 +23,13 @@ Future logout(BuildContext context) async {
             onlyConfirmation: false,
             cancelButtonText: "Hayır",
           ));
+}
+
+void baglantiHatasi(BuildContext context, String? message) async {
+  CustomAlertDialogOnlyConfirm(context, () {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: ((context) => Login())));
+  }, "Bir hata meydana geldi.", message!, ArtSweetAlertType.danger, "Tamam");
 }
 
 //-----------------VALIDATORS-----------------------------

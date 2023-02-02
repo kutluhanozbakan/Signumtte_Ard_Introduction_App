@@ -65,7 +65,7 @@ class APIRepository {
         return UserResult(
           message: result.message,
           data: result.data,
-          success: result.success,
+          success: false,
         );
       } else {
         result.data = userData.fromJson(response['data']);
