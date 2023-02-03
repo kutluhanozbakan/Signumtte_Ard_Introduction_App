@@ -3,9 +3,12 @@
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/components/login/login.dart';
+import 'package:flutter_introduction_app_ard_grup/utils/utils.dart';
 import '../widgets/customAlertDialog.dart';
 import '../widgets/customDialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../widgets/loadingScreenDialog.dart';
 
 Future logout(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -36,6 +39,64 @@ void baglantiHatasi(BuildContext context, String? message) async {
   }, "Bir hata meydana geldi.", message!, ArtSweetAlertType.danger, "Tamam");
 }
 
+Widget loadingBar(
+    BuildContext context, Color? backgroundcolor, Color? textColor) {
+  return CustomLoadingScreen(
+      backgroundColor: backgroundcolor, textColor: textColor);
+}
+
+Color generateColor(int l) {
+  return Listcolors[l];
+}
+
+Widget pageCard(BuildContext context, String cardName, Widget cardIcon) {
+  return SizedBox(
+      height: MediaQuery.of(context).size.height / 7,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: (BoxDecoration(
+            color: Color(0xffF7F7F7),
+            border: Border.all(
+              color: Color(0xffB4B4B4),
+            ),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 7,
+                offset: Offset(0, 3),
+              ),
+            ],
+          )),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  cardIcon,
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width / 11),
+                    child: Text(
+                      cardName,
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height / 45),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+      ));
+}
 //-----------------VALIDATORS-----------------------------
 // ignore_for_file: body_might_complete_normally_nullable
 

@@ -1,20 +1,30 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_introduction_app_ard_grup/providers/list_view_provider.dart';
 import 'package:sizer/sizer.dart';
 import 'api/get_token_api.dart';
 import 'components/splash_screen/splash_view.dart';
+import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(MaterialApp(
-    // ignore: prefer_const_literals_to_create_immutables
-    debugShowCheckedModeBanner: false,
-    title: 'ARD Tanitim Uygulamasi',
-    home: const MyHomePage(),
+  runApp(MultiProvider(
+    providers: providers,
+    child: MaterialApp(
+      // ignore: prefer_const_literals_to_create_immutables
+      debugShowCheckedModeBanner: false,
+      title: 'ARD Tanitim Uygulamasi',
+      home: const MyHomePage(),
+    ),
   ));
 }
+
+List<SingleChildWidget> providers = [
+  ChangeNotifierProvider<ListViewProvider>(create: (_) => ListViewProvider()),
+];
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

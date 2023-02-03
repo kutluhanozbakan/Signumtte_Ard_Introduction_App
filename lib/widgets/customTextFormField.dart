@@ -8,18 +8,18 @@ import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/utils.dart';
 import 'package:intl/intl.dart';
 
-class OcasTextFormField extends StatefulWidget {
+class CustomTextFormField extends StatefulWidget {
   final List<Widget> children;
   final String sectionName;
-  const OcasTextFormField(
+  const CustomTextFormField(
       {Key? key, required this.children, required this.sectionName})
       : super(key: key);
 
   @override
-  State<OcasTextFormField> createState() => _OcasTextFormFieldState();
+  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
 
-class _OcasTextFormFieldState extends State<OcasTextFormField> {
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,7 +29,7 @@ class _OcasTextFormFieldState extends State<OcasTextFormField> {
   }
 }
 
-class OcasTextFormFieldContent extends StatefulWidget {
+class CustomTextFormFieldContent extends StatefulWidget {
   final TextEditingController controller;
   final String name;
   final bool isDate;
@@ -57,7 +57,7 @@ class OcasTextFormFieldContent extends StatefulWidget {
   final IconData? suffixIcon;
   final VoidCallback? onSuffixTap;
   final bool preventSpecialCharacters;
-  const OcasTextFormFieldContent(
+  const CustomTextFormFieldContent(
       {Key? key,
       required this.controller,
       required this.name,
@@ -89,11 +89,12 @@ class OcasTextFormFieldContent extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<OcasTextFormFieldContent> createState() =>
-      _OcasTextFormFieldContentState();
+  State<CustomTextFormFieldContent> createState() =>
+      _CustomTextFormFieldContentState();
 }
 
-class _OcasTextFormFieldContentState extends State<OcasTextFormFieldContent> {
+class _CustomTextFormFieldContentState
+    extends State<CustomTextFormFieldContent> {
   String displayDateFormat = "";
   @override
   Widget build(BuildContext context) {

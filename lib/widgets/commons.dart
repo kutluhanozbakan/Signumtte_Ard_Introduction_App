@@ -15,9 +15,9 @@ Widget customDivider(double? padding, [Color? color]) {
   return Padding(
     padding: EdgeInsets.all(padding ?? 13.0),
     child: Divider(
-      thickness: 0.7,
-      indent: 80,
-      endIndent: 80,
+      thickness: 1,
+      indent: 0,
+      endIndent: 0,
       color: color ?? mainGreyColor,
     ),
   );

@@ -87,12 +87,12 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.all(height_10),
                 child: Column(
                   children: <Widget>[
-                    OcasTextFormFieldContent(
+                    CustomTextFormFieldContent(
                         controller: loginProvider.userName,
                         name: "E-mail",
                         validator: formEmail,
                         isIcon: true),
-                    OcasTextFormFieldContent(
+                    CustomTextFormFieldContent(
                         controller: loginProvider.password,
                         name: "Şifre",
                         validator: formBos,

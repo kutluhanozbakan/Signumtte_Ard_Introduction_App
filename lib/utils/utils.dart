@@ -45,6 +45,14 @@ List<Color> login_ui_color = [
   Color.fromARGB(255, 179, 196, 255)
 ];
 
+List<Color> Listcolors = [
+  Color(0xff025273),
+  Color(0xffCC998D),
+  Color(0xffBACDB0),
+  Color(0xffCCDDD3),
+  Color(0xff9F87AF),
+];
+
 Color container_box_shadow = Color.fromARGB(72, 141, 141, 141);
 
 Color mainColor = Color.fromARGB(255, 55, 82, 255);

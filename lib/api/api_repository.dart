@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, unused_local_variable, avoid_print, depend_on_referenced_packages
 
 import 'dart:convert';
+import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +10,10 @@ import 'package:flutter_introduction_app_ard_grup/utils/api_urls.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/http_response.model.dart';
 import '../models/user.model.dart';
-import '../services/dio/DioClient.dart';
+import 'package:dio/adapter.dart';
 
 class APIRepository {
-  DioClient? dioClient;
+  var dio = Dio();
   //Canlıya geçileceği zaman kullanılıcak Url
   //final String _baseUrl = BASE_URL;
   final String _baseUrl = BASE_URL;
@@ -24,22 +25,56 @@ class APIRepository {
 //Uygulama içerisinde kullanılan token 30 dakika içerisinde yenileniyor, sayfa içerisinde gezen kulanıcı 30 dakika boyunca işlem yapmaz
 //ise tekrar token alarak işlemlerine devam etmesi sağlanır.
 //RefreshToken
-  Future<bool> ReloadApiBase(String tokenValue) async {
-    var dio = Dio();
-    dio
-      ..options.baseUrl = _baseUrl
-      ..options.responseType = ResponseType.json
-      ..options.contentType = "application/json; charset=UTF-8"
-      ..options.connectTimeout = timeout
-      ..options.receiveTimeout = timeout
-      ..options.sendTimeout = timeout
-      ..options.headers = {'Content-Type': 'application/json; charset=UTF-8'};
-    dio.options.headers = {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'AUTH_TOKEN': tokenValue
+  ReloadApiBase(String tokenValue) async {
+    dio = Dio(BaseOptions(baseUrl: _baseUrl, headers: {
+      "Accept": "application/json",
+      "content-type": "application/json; charset=utf-8",
+      "X-Requested-With": "XMLHttpRequest",
+    }));
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+        (HttpClient dioClient) {
+      dioClient.badCertificateCallback =
+          ((X509Certificate cert, String host, int port) => true);
+
+      return dioClient;
     };
-    dioClient = DioClient(_baseUrl, dio, tokenValue);
-    return true;
+    initializeInterceptors(tokenValue);
+  }
+
+  initializeInterceptors(String tokenValue) {
+    dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, requestInterceptorHandler) {
+        String token = tokenValue;
+        if (token != "") {
+          print("Token:$token");
+          options.headers["Authorization"] =
+              "Bearer $token"; //Sending token with every request accept login
+          options.followRedirects = false;
+          return requestInterceptorHandler.next(options);
+        } else {
+          // ignore: void_checks
+          return requestInterceptorHandler.next(options);
+        }
+      },
+      onResponse: (response, responseInterceptorHandler) {
+        var map = Map<String, dynamic>.from(response.data);
+        if (response.statusCode == 401) {
+/*           _dio!.interceptors.requestLock.lock();
+          _dio!.interceptors.responseLock.lock(); */
+          print(response.statusCode);
+        }
+        print('onResponse:${response.statusCode}');
+        // ${response.statusCode} ${response.data}');
+        return responseInterceptorHandler.next(response);
+      },
+      onError: (error, errorInterceptorHandler) {
+        if (error.response != null) {
+          print("StatusCode:${error.response!.statusCode}");
+        }
+        print("Dio onError:${error.message}");
+        return errorInterceptorHandler.next(error);
+      },
+    ));
   }
 
 //Login Servis Sağlayıcısı
@@ -54,25 +89,25 @@ class APIRepository {
 
       Future.delayed(const Duration(seconds: 2)).whenComplete(() {});
       //Kullanılacak servisin içeriğine göre içerik değiştirilebilir.
-      final response = await dioClient!.post("v1/Auth/Login", data: {
+      final response = await dio.post("v1/Auth/Login", data: {
         "userName": userName,
         "password": password,
       });
       //Gelen response değerinin durumuna göre kontroller sağlanabilir.
-      if (response['statusCode'] != 200) {
+      if (response.statusCode != 200) {
         result.message =
-            response['message'] ?? response['message'] ?? "Giris Hatasi";
+            response.statusMessage ?? response.statusMessage ?? "Giris Hatasi";
         return UserResult(
           message: result.message,
           data: result.data,
           success: false,
         );
       } else {
-        result.data = userData.fromJson(response['data']);
+        result.data = userData.fromJson(response.data["data"]);
         if (result.data != null) {
           ReloadApiBase(result.data!.token!);
-          String userString = json.encode(response);
-          print(userString);
+          // String userString = json.encode(response);
+          // print(userString);
           saveToken(userName!, password!, result.data!.token!);
           if (rememberMe != false) {
             rememberMeOption();
@@ -118,7 +153,7 @@ class APIRepository {
     try {
       ReloadApiBase(StaticVariables.token);
       final response =
-          await dioClient!.get(controller!, queryParameters: queryParameters);
+          await dio.get(controller!, queryParameters: queryParameters);
       if (response != null) {
         return httpSonucModel(
           data: response,
@@ -198,7 +233,7 @@ class APIRepository {
     try {
       ReloadApiBase(StaticVariables.token);
       final response =
-          await dioClient!.get(controller!, queryParameters: queryParameters);
+          await dio.get(controller!, queryParameters: queryParameters);
       if (response != null) {
         return httpSonucModel(
           data: response,
@@ -297,10 +332,9 @@ encode(String zipText) {
   debugPrint('encoded: $stringEncoded');
 }
 
-
 //------------------------- ALTERNATİF KULLANIM-------------------------------------------------------------
 
- //Verilen gönderilmesini ve dönüş olarak İstenilen model için dönmesini sağlayan sağlayan servis bağlantısı
+  //Verilen gönderilmesini ve dönüş olarak İstenilen model için dönmesini sağlayan sağlayan servis bağlantısı
 
 //   Future<Model_İsmi> postReturnIslemSonuc(
 //       {@required String? controller,
@@ -351,5 +385,6 @@ encode(String zipText) {
 //       return Model_İsmi(
 //           basariDurumu: false, aciklama: e.message, );
 //     }
-//   }
+//   
+
 
