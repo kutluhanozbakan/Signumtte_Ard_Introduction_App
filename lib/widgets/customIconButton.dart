@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 
-class OcasIconButton extends StatelessWidget {
+class AppIconButton extends StatelessWidget {
   final VoidCallback? onTap;
   final String name;
   final Color? colors;
@@ -17,7 +17,7 @@ class OcasIconButton extends StatelessWidget {
   final num textOutSpace_right;
   final Color? textColor;
   final num textSize;
-  OcasIconButton({
+  AppIconButton({
     Key? key,
     this.onTap,
     this.name = "İsim",

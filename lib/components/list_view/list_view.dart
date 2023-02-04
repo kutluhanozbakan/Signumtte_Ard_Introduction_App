@@ -1,9 +1,11 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/components/login/login.dart';
 import 'package:flutter_introduction_app_ard_grup/models/list_view.model.dart';
 import 'package:flutter_introduction_app_ard_grup/providers/list_view_provider.dart';
+import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
+import 'package:flutter_introduction_app_ard_grup/utils/utils.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/commons.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/customListTile.dart';
 import 'package:intl/intl.dart';
@@ -20,26 +22,16 @@ class ListScreen extends StatefulWidget {
 }
 
 final apirepository = APIRepository();
-final ScrollController _scrollController = ScrollController();
 
 ListViewProvider? listViewProvider;
 
 class _ListScreenState extends State<ListScreen> {
   @override
   void initState() {
-    // listViewProvider = ListViewProvider();
-    // listViewProvider!.setisDataLoading = true;
-    // listViewProvider!.setloading = true;
-    // listViewProvider!.setisDataExist = false;
-    // listViewProvider!.exampleListView.clear();
-    // listViewProvider!.setcurrentPage = 1;
-    // setState(() {
-    //   listViewProvider!.loadData(listViewProvider!.currentPage);
-    // });
     super.initState();
-    final postMdl = Provider.of<ListViewProvider>(context, listen: false);
-    postMdl.exampleListView.clear();
-    postMdl.loadData(1);
+    final exampleList = Provider.of<ListViewProvider>(context, listen: false);
+    exampleList.exampleListView.clear();
+    exampleList.loadData(1);
   }
 
   @override
@@ -73,13 +65,7 @@ class _ListScreenState extends State<ListScreen> {
             children: [
               Column(
                 children: [
-                  pageCard(
-                      context,
-                      "Örnek Listeleme Ekranı",
-                      Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Image.asset(
-                              "lib/assets/images/ardgrup_logo.png"))),
+                  pageCard(context, "Örnek Listeleme Ekranı", logoHeader()),
                   !listViewProvider.isDataExist
                       ? Expanded(
                           child: NotificationListener<ScrollNotification>(
@@ -135,30 +121,12 @@ class _ListScreenState extends State<ListScreen> {
                 ],
               ),
               if (listViewProvider.isDataLoading == true) ...[
-                loadingBar(
-                    context, Color.fromARGB(102, 255, 255, 255), Colors.black)
+                loadingBar(context, APPColors.Accent.grey, APPColors.Main.black)
               ],
             ],
           )),
     );
   }
-
-  // bool _notificationController(ScrollNotification scrollInfo) {
-  //   if (listViewProvider!.isDataLoading &&
-  //       scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
-  //     if (listViewProvider!.toplamKayitSayisi != null &&
-  //         listViewProvider!.exampleListView.length >=
-  //             listViewProvider!.toplamKayitSayisi) {
-  //       return false;
-  //     }
-  //     listViewProvider!.setcurrentPage = 1 + listViewProvider!.currentPage;
-  //     listViewProvider!.loadData(listViewProvider!.currentPage);
-  //     setState(() {
-  //       listViewProvider!.setisDataLoading = true;
-  //     });
-  //   } else {}
-  //   return false;
-  // }
 
   Widget sayfaYenile() {
     return Consumer<ListViewProvider>(
@@ -173,7 +141,7 @@ class _ListScreenState extends State<ListScreen> {
           });
         },
         child: const Padding(
-          padding: EdgeInsets.all(18.0),
+          padding: EdgeInsets.all(height_18),
           child: Icon(Icons.refresh),
         ),
       );

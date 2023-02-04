@@ -55,6 +55,7 @@ class CustomTextFormFieldContent extends StatefulWidget {
   final String? errorText;
   final bool isSuffix;
   final IconData? suffixIcon;
+  final Color? iconColor;
   final VoidCallback? onSuffixTap;
   final bool preventSpecialCharacters;
   const CustomTextFormFieldContent(
@@ -85,7 +86,8 @@ class CustomTextFormFieldContent extends StatefulWidget {
       this.isIcon = true,
       this.inputFormatters,
       this.hintText = "",
-      this.textCapitalization = TextCapitalization.none})
+      this.textCapitalization = TextCapitalization.none,
+      this.iconColor})
       : super(key: key);
 
   @override
@@ -118,7 +120,7 @@ class _CustomTextFormFieldContentState
               readOnly: widget.readOnly,
               obscureText: widget.obscureText!,
               keyboardType: widget.inputType,
-              style: TextStyle(fontSize: font_size_14),
+              style: TextStyle(fontSize: font_size_16),
               validator: widget.validator,
               controller: widget.controller,
               decoration: InputDecoration(
@@ -131,16 +133,18 @@ class _CustomTextFormFieldContentState
                 suffixIcon: widget.isSuffix
                     ? IconButton(
                         icon: Icon(
-                            widget.suffixIcon ?? Icons.remove_red_eye_sharp),
+                          widget.suffixIcon ?? Icons.remove_red_eye_sharp,
+                        ),
                         onPressed: widget.onSuffixTap,
                       )
                     : null,
                 prefixIcon: widget.isIcon
                     ? Icon(widget.icon,
+                        color: widget.iconColor ?? APPColors.Main.blue,
                         size: MediaQuery.of(context).size.height / 30)
                     : null,
                 prefixIconColor: APPColors.Main.blue,
-                prefixStyle: TextStyle(fontSize: font_size_12),
+                prefixStyle: TextStyle(fontSize: font_size_14),
                 errorStyle: TextStyle(
                     fontWeight: FontWeight.bold, color: APPColors.Main.red),
               ),
@@ -197,8 +201,8 @@ class _CustomTextFormFieldContentState
                   child: AbsorbPointer(
                     child: TextFormField(
                       readOnly: true,
-                      obscureText: widget.obscureText == null ? false : true,
-                      style: TextStyle(fontSize: font_size_12),
+                      obscureText: false,
+                      style: TextStyle(fontSize: font_size_16),
                       validator: widget.validator,
                       controller: widget.controller,
                       decoration: InputDecoration(

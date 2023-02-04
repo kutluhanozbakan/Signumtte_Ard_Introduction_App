@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 import '../utils/utils.dart';
 
 //Boşluk bırakmak için kullanılacak olan widget
@@ -21,4 +22,10 @@ Widget customDivider(double? padding, [Color? color]) {
       color: color ?? mainGreyColor,
     ),
   );
+}
+
+Widget logoHeader() {
+  return Align(
+      alignment: Alignment.bottomLeft,
+      child: Image.asset(APPImages.splashScreen.images));
 }

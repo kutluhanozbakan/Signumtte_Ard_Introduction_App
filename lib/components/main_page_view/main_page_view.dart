@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_introduction_app_ard_grup/components/crud_view/crud_view.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 
 import '../../widgets/customBottomNavigation.dart';
@@ -45,10 +46,7 @@ class _MainPageState extends State<MainPage> {
             /*-------------- Build tab content here -----------------*/
 
             ListScreen(),
-            Center(
-              child: Text("Bottom Navigation",
-                  style: TextStyle(fontWeight: FontWeight.w600)),
-            ),
+            CrudView(),
             Center(
               child: Text("Bottom Navigation",
                   style: TextStyle(fontWeight: FontWeight.w600)),

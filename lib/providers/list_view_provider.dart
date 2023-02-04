@@ -77,7 +77,7 @@ class ListViewProvider extends ChangeNotifier {
       "Page": index,
       "PropertyName": 'id',
       "ItemPerPage": 10,
-      "Asc": true,
+      "Asc": false,
       "version": 1
     };
 

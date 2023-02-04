@@ -47,7 +47,7 @@ extension APPColorsExtension on APPColors {
       case APPColors.Secondary:
         return Color(0xFF776E6E);
       case APPColors.Accent:
-        return Color(0xffF8F8F8);
+        return Color.fromARGB(140, 255, 255, 255);
       default:
         return const Color(0xffABABAB);
     }
