@@ -83,7 +83,7 @@ Widget pageCard(BuildContext context, String cardName, Widget cardIcon) {
                   cardIcon,
                   Padding(
                     padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width / 11),
+                        left: MediaQuery.of(context).size.width / 20),
                     child: Text(
                       cardName,
                       style: TextStyle(

@@ -11,7 +11,7 @@ class ListViewModel {
 
   ListViewModel(
       {this.customerId,
-      this.id,
+      this.id = 0,
       this.isDelete,
       this.description,
       this.isRead,

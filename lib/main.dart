@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/providers/crud_view_provider.dart';
 import 'package:flutter_introduction_app_ard_grup/providers/list_view_provider.dart';
+import 'package:flutter_introduction_app_ard_grup/providers/main_page_view_provider.dart';
 import 'package:sizer/sizer.dart';
 import 'api/get_token_api.dart';
 import 'components/splash_screen/splash_view.dart';
@@ -26,6 +27,8 @@ void main() {
 List<SingleChildWidget> providers = [
   ChangeNotifierProvider<ListViewProvider>(create: (_) => ListViewProvider()),
   ChangeNotifierProvider<CrudViewProvider>(create: (_) => CrudViewProvider()),
+  ChangeNotifierProvider<MainPageViewProvider>(
+      create: (_) => MainPageViewProvider()),
 ];
 
 class MyApp extends StatelessWidget {

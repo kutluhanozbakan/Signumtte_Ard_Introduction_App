@@ -8,6 +8,7 @@ import 'package:flutter_introduction_app_ard_grup/widgets/customAlertDialog.dart
 import 'package:intl/intl.dart';
 
 import '../api/api_repository.dart';
+import '../models/list_view.model.dart';
 
 class CrudViewProvider extends ChangeNotifier {
   final apirepository = APIRepository();
@@ -17,13 +18,36 @@ class CrudViewProvider extends ChangeNotifier {
   TextEditingController _descriptionController = TextEditingController();
   TextEditingController _descriptionDateController = TextEditingController();
   TextEditingController _descriptionReadedController = TextEditingController();
+
+  int? _formId;
   bool _iskurumTuruEmpty = false;
+  bool _isUpdateActivated = false;
 
   bool get iskurumTuruEmpty => _iskurumTuruEmpty;
+  bool get isUpdateActivated => _isUpdateActivated;
+  int? get formId => _formId;
 
   TextEditingController get descriptionController => _descriptionController;
 
   GlobalKey<FormState> get crudFormKey => _crudFormKey;
+
+  PageController? _pageController;
+  PageController? get pageController => _pageController;
+
+  set setFormId(int formId) {
+    _formId = formId;
+    notifyListeners();
+  }
+
+  set setIsUpdateActivated(bool isUpdateActivated) {
+    _isUpdateActivated = isUpdateActivated;
+    notifyListeners();
+  }
+
+  set setpageController(PageController pageController) {
+    _pageController = pageController;
+    notifyListeners();
+  }
 
   set setIsKurumTuruEmpty(bool kurumTuru) {
     _iskurumTuruEmpty = kurumTuru;
@@ -52,13 +76,54 @@ class CrudViewProvider extends ChangeNotifier {
   }
 
   clearForm() {
-    _descriptionController.clear();
-    _descriptionDateController.clear();
-    _descriptionReadedController.clear();
+    if (_descriptionController.text.isNotEmpty ||
+        _descriptionDateController.text.isNotEmpty ||
+        _descriptionReadedController.text.isNotEmpty) {
+      _descriptionController.clear();
+      _descriptionDateController.clear();
+      _descriptionReadedController.clear();
+      if (_descriptionReadedController.text.isEmpty) {
+        _iskurumTuruEmpty = false;
+      }
+      _isUpdateActivated = false;
+      _formId = 0;
+      notifyListeners();
+    }
+  }
+
+  addOrUpdateForm(BuildContext context) {
+    if (!isUpdateActivated) {
+      addForm(context);
+    } else {
+      _iskurumTuruEmpty = false;
+      setIsKurumTuruEmpty = false;
+      updateForm(context);
+      notifyListeners();
+    }
+  }
+
+  initForm([ListViewModel? listViewModel]) {
+    if (listViewModel != null) {
+      print(listViewModel);
+    }
     _iskurumTuruEmpty = false;
   }
 
-  addForm(BuildContext context) async {
+  void fillForm(BuildContext context, ListViewModel listElements,
+      PageController pageController) {
+    _formId = listElements.id;
+    _isUpdateActivated = true;
+    _pageController = pageController;
+    _pageController!.jumpToPage(1);
+    _descriptionController.text = listElements.description!;
+    DateTime dateTime = DateTime.parse(listElements.notificationDate!);
+    String formattedDate = DateFormat("dd/MM/yyyy").format(dateTime);
+    _descriptionDateController.text = formattedDate;
+    _descriptionReadedController.text =
+        listElements.isRead == true ? "Evet" : "Hayır";
+  }
+
+  void addForm(BuildContext context) async {
     if (_crudFormKey.currentState!.validate() && !iskurumTuruEmpty) {
       DateTime date = DateFormat("dd/MM/yyyy - HH:mm")
           .parse(_descriptionDateController.text);
@@ -107,7 +172,63 @@ class CrudViewProvider extends ChangeNotifier {
     }
   }
 
-  initForm() {
-    _iskurumTuruEmpty = false;
+  void updateForm(BuildContext context) async {
+    print(_descriptionController.text);
+    print(_descriptionDateController.text);
+    print(_descriptionReadedController.text);
+    if (_crudFormKey.currentState!.validate() && !iskurumTuruEmpty) {
+      DateTime date;
+      if (_descriptionDateController.text.contains('-')) {
+        date = DateFormat("dd/MM/yyyy - HH:mm")
+            .parse(_descriptionDateController.text);
+      } else {
+        date = DateFormat("dd/MM/yyyy").parse(_descriptionDateController.text);
+      }
+
+      var utc = date.toIso8601String();
+
+      Map<String, dynamic> queryParameters = {
+        "id": _formId,
+        "customerId": 1,
+        "description": _descriptionController.text,
+        "notificationType": 1,
+        "referenceId": "23123",
+        "notificationDate": utc,
+        "isRead": _descriptionReadedController.text == "Evet" ? true : false,
+        "isDelete": false
+      };
+      print(queryParameters);
+
+      httpSonucModel apiResponse = await apirepository.post(
+          controller: "v1/Notification/UpdateNotification",
+          data: queryParameters);
+      if (apiResponse.success == true) {
+        clearForm();
+        CustomAlertDialogOnlyConfirm(
+          context,
+          () {
+            Navigator.pop(context);
+          },
+          "Başarılı",
+          "Kayıt başarı ile eklendi.",
+          ArtSweetAlertType.success,
+          "Tamam",
+        );
+      } else {
+        CustomAlertDialogOnlyConfirm(context, () {
+          Navigator.pop(context);
+        },
+            "Uyarı",
+            "Kayıt sırasında bir hata oluştu. Hata mesajı: ${apiResponse.message}.",
+            ArtSweetAlertType.warning,
+            "Tamam");
+      }
+    } else {
+      if (_descriptionReadedController.text.isEmpty) {
+        _iskurumTuruEmpty = true;
+      }
+
+      notifyListeners();
+    }
   }
 }

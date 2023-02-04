@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/api/api_repository.dart';
+import 'package:flutter_introduction_app_ard_grup/components/crud_view/crud_view.dart';
 import 'package:flutter_introduction_app_ard_grup/models/list_view.model.dart';
+import 'package:provider/provider.dart';
 
 import '../models/http_response.model.dart';
 import '../utils/global_utils.dart';
+import 'main_page_view_provider.dart';
 
 class ListViewProvider extends ChangeNotifier {
   final apirepository = APIRepository();
   List<ListViewModel> _exampleListView = [];
   List<ListViewModel> tempexampleListView = [];
+  PageController? _pageController;
 
   bool _isDataLoading = true;
   bool _loading = false;
   bool _isDataExist = false;
   int _currentPage = 1;
   int _toplamKayitSayisi = 0;
+
+  PageController? get pageController => _pageController;
+  set setpageController(PageController pageController) {
+    _pageController = pageController;
+    notifyListeners();
+  }
 
   List<ListViewModel> get exampleListView => _exampleListView;
   set setiexampleListView(List<ListViewModel> exampleListView) {
@@ -109,5 +119,9 @@ class ListViewProvider extends ChangeNotifier {
     } else {
       // baglantiHatasi(context, result.message);
     }
+  }
+
+  void initData([PageController? pageController]) {
+    _pageController = pageController;
   }
 }

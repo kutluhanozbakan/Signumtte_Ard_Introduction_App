@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_introduction_app_ard_grup/components/crud_view/crud_view.dart';
+import 'package:flutter_introduction_app_ard_grup/providers/main_page_view_provider.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 
+import '../../models/list_view.model.dart';
 import '../../widgets/customBottomNavigation.dart';
 import '../list_view/list_view.dart';
+import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -23,31 +26,37 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
+    final mainViewProvider =
+        Provider.of<MainPageViewProvider>(context, listen: false);
+
+    mainViewProvider.initForm();
   }
 
   @override
   void dispose() {
-    _pageController!.dispose();
+    final mainViewProvider =
+        Provider.of<MainPageViewProvider>(context, listen: false);
+    mainViewProvider.pageController!.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final mainViewProvide = Provider.of<MainPageViewProvider>(context);
+
     return Scaffold(
       body: SizedBox.expand(
         child: PageView(
           physics: NeverScrollableScrollPhysics(),
-          controller: _pageController,
+          controller: mainViewProvide.pageController,
           onPageChanged: (index) {
-            setState(() => _currentIndex = index);
+            setState(() => mainViewProvide.setcurrentIndex = index);
           },
-          // ignore: prefer_const_literals_to_create_immutables
           children: <Widget>[
-            /*-------------- Build tab content here -----------------*/
-
-            ListScreen(),
-            CrudView(),
+            ListScreen(pageController: mainViewProvide.pageController!),
+            CrudView(
+                listElements: new ListViewModel(),
+                pageController: mainViewProvide.pageController!),
             Center(
               child: Text("Bottom Navigation",
                   style: TextStyle(fontWeight: FontWeight.w600)),
@@ -59,10 +68,10 @@ class _MainPageState extends State<MainPage> {
         animationDuration: Duration(milliseconds: 350),
         selectedItemOverlayColor: APPColors.Main.blue,
         backgroundColor: APPColors.Main.white,
-        selectedIndex: _currentIndex,
+        selectedIndex: mainViewProvide.currentIndex,
         onItemSelected: (index) {
-          setState(() => _currentIndex = index);
-          _pageController!.jumpToPage(index);
+          setState(() => mainViewProvide.setcurrentIndex = index);
+          mainViewProvide.pageController!.jumpToPage(index);
         },
         items: <CustomBottomNavigationBarItem>[
           /*-------------- Build tabs here -----------------*/
@@ -84,11 +93,5 @@ class _MainPageState extends State<MainPage> {
         ],
       ),
     );
-  }
-
-  onTapped(value) {
-    setState(() {
-      _currentIndex = value;
-    });
   }
 }

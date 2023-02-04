@@ -27,5 +27,7 @@ Widget customDivider(double? padding, [Color? color]) {
 Widget logoHeader() {
   return Align(
       alignment: Alignment.bottomLeft,
-      child: Image.asset(APPImages.splashScreen.images));
+      child: Image.asset(
+        APPImages.splashScreen.images,
+      ));
 }

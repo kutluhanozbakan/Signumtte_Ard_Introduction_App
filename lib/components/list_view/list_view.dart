@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/components/login/login.dart';
 import 'package:flutter_introduction_app_ard_grup/models/list_view.model.dart';
+import 'package:flutter_introduction_app_ard_grup/providers/crud_view_provider.dart';
 import 'package:flutter_introduction_app_ard_grup/providers/list_view_provider.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/utils.dart';
@@ -15,8 +16,8 @@ import '../../utils/global_utils.dart';
 import '../../widgets/customInfoNotFound.dart';
 
 class ListScreen extends StatefulWidget {
-  const ListScreen({Key? key}) : super(key: key);
-
+  const ListScreen({Key? key, required this.pageController}) : super(key: key);
+  final PageController pageController;
   @override
   State<ListScreen> createState() => _ListScreenState();
 }
@@ -30,14 +31,17 @@ class _ListScreenState extends State<ListScreen> {
   void initState() {
     super.initState();
     final exampleList = Provider.of<ListViewProvider>(context, listen: false);
+
     exampleList.exampleListView.clear();
     exampleList.loadData(1);
+    exampleList.initData(widget.pageController);
   }
 
   @override
   Widget build(BuildContext context) {
     int l = -1;
     final listViewProvider = Provider.of<ListViewProvider>(context);
+    final crudProvider = Provider.of<CrudViewProvider>(context, listen: false);
 
     return WillPopScope(
       onWillPop: () async {
@@ -107,7 +111,13 @@ class _ListScreenState extends State<ListScreen> {
                                           MediaQuery.of(context).size.height /
                                               80),
                                       child: AppListTileWithAvatar(
-                                        icon: null,
+                                        icon: Icons.edit,
+                                        onTap: () {
+                                          crudProvider.fillForm(
+                                              context,
+                                              listElements,
+                                              listViewProvider.pageController!);
+                                        },
                                         iconColor: generateColor(l),
                                         transactionIcon: i.toString(),
                                         transactionAmount: formattedDate,

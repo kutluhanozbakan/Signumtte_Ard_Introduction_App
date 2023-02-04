@@ -10,10 +10,15 @@ import 'package:flutter_introduction_app_ard_grup/widgets/customIconButton.dart'
 import 'package:flutter_introduction_app_ard_grup/widgets/customTextFormField.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/list_view.model.dart';
 import '../../widgets/customDropdown.dart';
 
 class CrudView extends StatefulWidget {
-  const CrudView({super.key});
+  const CrudView(
+      {super.key, required this.listElements, required this.pageController});
+
+  final ListViewModel listElements;
+  final PageController pageController;
 
   @override
   State<CrudView> createState() => _CrudViewState();
@@ -22,9 +27,14 @@ class CrudView extends StatefulWidget {
 class _CrudViewState extends State<CrudView> {
   @override
   void initState() {
-    super.initState();
     final crudP = Provider.of<CrudViewProvider>(context, listen: false);
-    crudP.initForm();
+
+    if (widget.listElements.id != 0) {
+      crudP.initForm(widget.listElements);
+    } else {
+      crudP.initForm();
+    }
+    super.initState();
   }
 
   @override
@@ -38,7 +48,10 @@ class _CrudViewState extends State<CrudView> {
           key: crudProvider.crudFormKey,
           child: Column(
             children: [
-              pageCard(context, "Örnek Kayıt Ekleme Ekranı", logoHeader()),
+              pageCard(
+                  context,
+                  "Örnek Kayıt ${crudProvider.isUpdateActivated ? 'Güncelleme' : 'Ekleme'} Ekranı",
+                  logoHeader()),
               CustomTextFormField(
                   // ignore: sort_child_properties_last
                   children: [
@@ -121,14 +134,20 @@ class _CrudViewState extends State<CrudView> {
                       onTap: () => crudProvider.clearForm(),
                     ),
                     AppIconButton(
-                      colors: APPColors.Secondary.orange,
+                      colors: crudProvider.isUpdateActivated
+                          ? APPColors.Secondary.orange
+                          : APPColors.Main.blue,
                       height: height_18,
-                      name: "Ekle",
+                      width: height_3,
+                      name:
+                          crudProvider.isUpdateActivated ? "Güncelle" : "Ekle",
                       icons: Icon(
                         Icons.add,
-                        color: APPColors.Main.white,
+                        color: crudProvider.isUpdateActivated
+                            ? APPColors.Secondary.white
+                            : APPColors.Main.white,
                       ),
-                      onTap: () => crudProvider.addForm(context),
+                      onTap: () => crudProvider.addOrUpdateForm(context),
                     ),
                   ],
                 ),
