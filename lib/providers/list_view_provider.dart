@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/api/api_repository.dart';
 import 'package:flutter_introduction_app_ard_grup/components/crud_view/crud_view.dart';
 import 'package:flutter_introduction_app_ard_grup/models/list_view.model.dart';
+import 'package:flutter_introduction_app_ard_grup/utils/api_urls.dart';
 import 'package:provider/provider.dart';
 
 import '../models/http_response.model.dart';
@@ -92,7 +93,7 @@ class ListViewProvider extends ChangeNotifier {
     };
 
     httpSonucModel result = await apirepository.getListForPaging(
-        controller: "v1/Notification/GetNotificationsPagingFilter",
+        controller: getNotificationsWithPagingFilter,
         queryParameters: queryParameters);
     if (result.success!) {
       tempexampleListView = (result.data.data['data'] as List)

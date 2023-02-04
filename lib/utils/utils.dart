@@ -58,6 +58,3 @@ Color container_box_shadow = Color.fromARGB(72, 141, 141, 141);
 Color mainColor = Color.fromARGB(255, 55, 82, 255);
 Color mainWhiteColor = Colors.white;
 Color mainGreyColor = Colors.grey;
-
-//logo
-String ard_logo_url = "lib\\assets\\images\\ardgrup_logo.png";

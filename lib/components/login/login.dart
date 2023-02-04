@@ -153,7 +153,7 @@ class _LoginState extends State<Login> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(ard_logo_url),
+            Image.asset(APPImages.splashScreen.images),
           ],
         ),
         Padding(

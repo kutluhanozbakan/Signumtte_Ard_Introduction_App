@@ -89,7 +89,7 @@ class APIRepository {
 
       Future.delayed(const Duration(seconds: 2)).whenComplete(() {});
       //Kullanılacak servisin içeriğine göre içerik değiştirilebilir.
-      final response = await dio.post("v1/Auth/Login", data: {
+      final response = await dio.post(loginUrl, data: {
         "userName": userName,
         "password": password,
       });

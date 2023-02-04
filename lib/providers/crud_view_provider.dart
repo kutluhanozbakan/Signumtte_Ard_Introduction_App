@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 
 import '../api/api_repository.dart';
 import '../models/list_view.model.dart';
+import '../utils/api_urls.dart';
 
 class CrudViewProvider extends ChangeNotifier {
   final apirepository = APIRepository();
@@ -141,7 +142,7 @@ class CrudViewProvider extends ChangeNotifier {
       };
 
       httpSonucModel apiResponse = await apirepository.post(
-          controller: "v1/Notification/AddNotification", data: queryParameters);
+          controller: addNotification, data: queryParameters);
       if (apiResponse.success == true) {
         clearForm();
         CustomAlertDialogOnlyConfirm(
@@ -173,9 +174,6 @@ class CrudViewProvider extends ChangeNotifier {
   }
 
   void updateForm(BuildContext context) async {
-    print(_descriptionController.text);
-    print(_descriptionDateController.text);
-    print(_descriptionReadedController.text);
     if (_crudFormKey.currentState!.validate() && !iskurumTuruEmpty) {
       DateTime date;
       if (_descriptionDateController.text.contains('-')) {
@@ -200,8 +198,7 @@ class CrudViewProvider extends ChangeNotifier {
       print(queryParameters);
 
       httpSonucModel apiResponse = await apirepository.post(
-          controller: "v1/Notification/UpdateNotification",
-          data: queryParameters);
+          controller: updateNotication, data: queryParameters);
       if (apiResponse.success == true) {
         clearForm();
         CustomAlertDialogOnlyConfirm(

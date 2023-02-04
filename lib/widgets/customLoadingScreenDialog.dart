@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
 class CustomLoadingScreen extends StatefulWidget {
@@ -33,7 +34,7 @@ class _CustomLoadingScreenState extends State<CustomLoadingScreen> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Image.asset(
-                          "lib/assets/images/ardgrup_logo.png",
+                          APPImages.splashScreen.images,
                         ),
                       ],
                     ),

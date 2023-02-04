@@ -7,8 +7,7 @@ import 'package:flutter_introduction_app_ard_grup/utils/utils.dart';
 import '../widgets/customAlertDialog.dart';
 import '../widgets/customDialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../widgets/loadingScreenDialog.dart';
+import '../widgets/customLoadingScreenDialog.dart';
 
 Future logout(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
