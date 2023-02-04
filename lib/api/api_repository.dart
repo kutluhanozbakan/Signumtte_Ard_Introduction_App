@@ -219,6 +219,68 @@ class APIRepository {
     }
   }
 
+  Future<httpSonucModel> post(
+      {@required String? controller,
+      @required dynamic data,
+      bool redirectLogin = false}) async {
+    try {
+      ReloadApiBase(StaticVariables.token);
+      final response = await dio.post(controller!, data: data);
+      httpSonucModel result = httpSonucModel.fromJsonData(response.data);
+
+      return result;
+    } on DioError catch (e) {
+      if (DioErrorType.other == e.type) {
+        return httpSonucModel(
+          success: false,
+          message: "Bağlantı Hatası",
+        );
+      }
+      if (DioErrorType.response == e.type) {
+        if (e.response!.statusCode == 401) {
+          return httpSonucModel(
+            success: false,
+            message: "Yetkisiz Erişim",
+          );
+        }
+        return httpSonucModel(
+          success: false,
+          message: "İstek hatası",
+        );
+      }
+      if (DioErrorType.connectTimeout == e.type) {
+        return httpSonucModel(
+          success: false,
+          message: "Sistem zaman aşımına uğradı",
+        );
+      }
+      if (DioErrorType.sendTimeout == e.type) {
+        return httpSonucModel(
+          success: false,
+          message: "Sistem zaman aşımına uğradı",
+        );
+      }
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+        return httpSonucModel(
+          success: false,
+          message: e.message,
+        );
+      }
+      return httpSonucModel(
+        success: false,
+        message: e.message,
+      );
+    }
+  }
+
 //get metodu
 //Verilen çekilmesini sağlayan servis bağlantısı
   Future<httpSonucModel> get(
@@ -297,94 +359,41 @@ class APIRepository {
       }
     }
   }
-}
 
 //Beni hatırla butonuna basıldığı takdirde calısan alan,
 //Kullanıcının bilgilerini localstorage üzerine kayıt edilir ve bir dahaki girişinde direkt olarak local storage üzerinden alınır.
-void rememberMeOption() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setString("Token", StaticVariables.token);
-  await prefs.setString("cryptedUserName", StaticVariables.cryptedUserName);
-  await prefs.setString("cryptedPassword", StaticVariables.cryptedPassword);
-}
+  void rememberMeOption() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString("Token", StaticVariables.token);
+    await prefs.setString("cryptedUserName", StaticVariables.cryptedUserName);
+    await prefs.setString("cryptedPassword", StaticVariables.cryptedPassword);
+  }
 
 //Kullanıcı giriş yaptıktan sonra gelen tokenı local storage üzerinde kayıt edilmesini sağlayan alan
-void saveToken(String username, String password, String token) {
-  //Uygulama güvenliği için gelen kullanıcı kayıtları hashed edilir.
+  void saveToken(String username, String password, String token) {
+    //Uygulama güvenliği için gelen kullanıcı kayıtları hashed edilir.
 
-  var stringBytesSifre = utf8.encode(password);
-  var stringBytesKadi = utf8.encode(username);
-  var gzipBytesSifre = GZipEncoder().encode(stringBytesSifre);
-  var gzipBytesKadi = GZipEncoder().encode(stringBytesKadi);
-  var stringEncodedSifre = base64.encode(gzipBytesSifre!);
-  var stringEncodedKadi = base64.encode(gzipBytesKadi!);
+    var stringBytesSifre = utf8.encode(password);
+    var stringBytesKadi = utf8.encode(username);
+    var gzipBytesSifre = GZipEncoder().encode(stringBytesSifre);
+    var gzipBytesKadi = GZipEncoder().encode(stringBytesKadi);
+    var stringEncodedSifre = base64.encode(gzipBytesSifre!);
+    var stringEncodedKadi = base64.encode(gzipBytesKadi!);
 
-  StaticVariables.cryptedPassword = stringEncodedSifre;
-  StaticVariables.cryptedUserName = stringEncodedKadi;
-  StaticVariables.token = token;
-}
+    StaticVariables.cryptedPassword = stringEncodedSifre;
+    StaticVariables.cryptedUserName = stringEncodedKadi;
+    StaticVariables.token = token;
+  }
 
 //Şifreler hashed olarak tutulması gerektiği için encode ediliyor.
-encode(String zipText) {
-  var stringBytes = utf8.encode(zipText);
-  var gzipBytes = GZipEncoder().encode(stringBytes);
-  var stringEncoded = base64.encode(gzipBytes!);
-  debugPrint('encoded: $stringEncoded');
-}
+  encode(String zipText) {
+    var stringBytes = utf8.encode(zipText);
+    var gzipBytes = GZipEncoder().encode(stringBytes);
+    var stringEncoded = base64.encode(gzipBytes!);
+    debugPrint('encoded: $stringEncoded');
+  }
 
 //------------------------- ALTERNATİF KULLANIM-------------------------------------------------------------
 
   //Verilen gönderilmesini ve dönüş olarak İstenilen model için dönmesini sağlayan sağlayan servis bağlantısı
-
-//   Future<Model_İsmi> postReturnIslemSonuc(
-//       {@required String? controller,
-//       @required dynamic data,
-//       bool redirectLogin = false}) async {
-//     try {
-//       ReloadApiBase(StaticVariables.token);
-//       final response = await dioClient!.post(controller!, data: data);
-//       Model_İsmi sonuc = Model_İsmi.fromJson(response);
-//       return sonuc;
-//     } on DioError catch (e) {
-//       if (DioErrorType.other == e.type) {
-//         return Model_İsmi(
-//             basariDurumu: false, aciklama: "Bağlantı Hatası", );
-//       }
-//       if (DioErrorType.response == e.type) {
-//         if (e.response!.statusCode == 401) {
-//           return Model_İsmi(
-//               basariDurumu: false, aciklama: "Yetkisiz Erişim",);
-//         }
-//         return Model_İsmi(
-//             basariDurumu: false, aciklama: "İstek hatası", );
-//       }
-//       if (DioErrorType.connectTimeout == e.type) {
-//         return Model_İsmi(
-//             basariDurumu: false,
-//             aciklama: "Sistem zaman aşımına uğradı",
-//             );
-//       }
-//       if (DioErrorType.sendTimeout == e.type) {
-//         return Model_İsmi(
-//             basariDurumu: false,
-//             aciklama: "Sistem zaman aşımına uğradı",
-//             );
-//       }
-//       if (e.response != null) {
-//         print('Dio error!');
-//         print('STATUS: ${e.response?.statusCode}');
-//         print('DATA: ${e.response?.data}');
-//         print('HEADERS: ${e.response?.headers}');
-//       } else {
-//         // Error due to setting up or sending the request
-//         print('Error sending request!');
-//         print(e.message);
-//         return Model_İsmi(
-//             basariDurumu: false, aciklama: e.message, );
-//       }
-//       return Model_İsmi(
-//           basariDurumu: false, aciklama: e.message, );
-//     }
-//   
-
-
+}

@@ -79,15 +79,27 @@ class _ListScreenState extends State<ListScreen> {
                                 if (l == 5) {
                                   l = 0;
                                 }
+                                String formattedDate = "";
                                 ListViewModel listElements =
                                     listViewProvider.exampleListView[i];
+                                if (listElements.notificationDate
+                                    .toString()
+                                    .contains(".")) {
+                                  DateTime dateTime =
+                                      DateFormat("yyyy-MM-ddTHH:mm:ss.SSS")
+                                          .parse(listElements.notificationDate
+                                              .toString());
+                                  formattedDate =
+                                      DateFormat("dd/MM/yyyy").format(dateTime);
+                                } else {
+                                  DateTime dateTime =
+                                      DateFormat("yyyy-MM-ddTHH:mm").parse(
+                                          listElements.notificationDate
+                                              .toString());
+                                  formattedDate =
+                                      DateFormat("dd/MM/yyyy").format(dateTime);
+                                }
 
-                                DateTime dateTime =
-                                    DateFormat("yyyy-MM-ddTHH:mm:ss.SSS").parse(
-                                        listElements.notificationDate
-                                            .toString());
-                                String formattedDate =
-                                    DateFormat("dd/MM/yyyy").format(dateTime);
                                 return Column(
                                   children: [
                                     Padding(

@@ -19,3 +19,15 @@ class UserResult {
 
   UserResult({this.data, this.statusCode, this.success, this.message});
 }
+
+class ApiResponse {
+  bool? success;
+  String? message;
+
+  ApiResponse({this.message, this.success});
+
+  ApiResponse.fromJson(Map<String, dynamic> json) {
+    message = json['message'];
+    success = json['success'];
+  }
+}

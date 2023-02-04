@@ -7,7 +7,7 @@ class httpSonucModel {
   String? message;
 
   httpSonucModel({
-    required this.data,
+    this.data,
     required this.success,
     required this.message,
   });

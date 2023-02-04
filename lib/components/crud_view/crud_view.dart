@@ -21,6 +21,13 @@ class CrudView extends StatefulWidget {
 
 class _CrudViewState extends State<CrudView> {
   @override
+  void initState() {
+    super.initState();
+    final crudP = Provider.of<CrudViewProvider>(context, listen: false);
+    crudP.initForm();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final crudProvider = Provider.of<CrudViewProvider>(context);
     return Scaffold(
@@ -60,15 +67,40 @@ class _CrudViewState extends State<CrudView> {
                       child: CustomDropdown(
                         onChanged: (val) {
                           crudProvider.setdescriptionReadedController = val!;
+                          if (crudProvider
+                              .descriptionReadedController.text.isNotEmpty) {
+                            crudProvider.setIsKurumTuruEmpty = false;
+                          } else {
+                            crudProvider.setIsKurumTuruEmpty = true;
+                          }
                         },
+                        disableClear: true,
                         icons: Icons.notification_add,
                         listHeight: 2,
-                        validator: formBos,
                         controller: crudProvider.descriptionReadedController,
                         header: "Bildirim Durumu",
                         items: ["Evet", "Hayır"],
                       ),
                     ),
+                    crudProvider.iskurumTuruEmpty
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left:
+                                        MediaQuery.of(context).size.width / 12),
+                                child: Text(
+                                  "Bu alan boş bırakılamaz",
+                                  style: TextStyle(
+                                      color: APPColors.Main.red,
+                                      fontSize: height_12,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container(),
                   ],
                   sectionName: "Notification Bilgileri"),
               Padding(
@@ -96,7 +128,7 @@ class _CrudViewState extends State<CrudView> {
                         Icons.add,
                         color: APPColors.Main.white,
                       ),
-                      onTap: () => crudProvider.addForm(),
+                      onTap: () => crudProvider.addForm(context),
                     ),
                   ],
                 ),
