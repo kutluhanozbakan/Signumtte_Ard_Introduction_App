@@ -12,6 +12,8 @@ import '../../widgets/customBottomNavigation.dart';
 import '../list_view/list_view.dart';
 import 'package:provider/provider.dart';
 
+import '../other_widgets_view/other_widgets.view.dart';
+
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
@@ -57,10 +59,7 @@ class _MainPageState extends State<MainPage> {
             CrudView(
                 listElements: new ListViewModel(),
                 pageController: mainViewProvide.pageController!),
-            Center(
-              child: Text("Bottom Navigation",
-                  style: TextStyle(fontWeight: FontWeight.w600)),
-            ),
+            OtherWidgetsView()
           ],
         ),
       ),

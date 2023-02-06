@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/providers/login_provider.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
-import 'package:flutter_introduction_app_ard_grup/widgets/customButton.dart';
+import 'package:flutter_introduction_app_ard_grup/widgets/buttonWidgets/customButton.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/customTextFormField.dart';
 import '../../utils/global_utils.dart';
 import '../../utils/utils.dart';
@@ -126,7 +126,7 @@ class _LoginState extends State<Login> {
             ),
             Padding(
                 padding: EdgeInsets.only(top: height_50),
-                child: AppButton(
+                child: CustomButton(
                   isIcon: false,
                   colors: APPColors.Main.blue,
                   name: "Giriş",

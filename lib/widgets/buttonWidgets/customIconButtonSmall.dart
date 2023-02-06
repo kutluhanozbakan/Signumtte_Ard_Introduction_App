@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class AppIconButtonSm extends StatefulWidget {
+class CustumIconButtonSm extends StatefulWidget {
   final Color backgroundColor;
   final VoidCallback? onPressed;
   final Color iconColor;
   final IconData icon;
   final bool disable;
-  const AppIconButtonSm(
+  const CustumIconButtonSm(
       {Key? key,
       this.backgroundColor = const Color(0xFFcc4444),
       this.onPressed,
@@ -16,10 +16,10 @@ class AppIconButtonSm extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<AppIconButtonSm> createState() => _AppIconButtonSmState();
+  State<CustumIconButtonSm> createState() => _CustumIconButtonSmState();
 }
 
-class _AppIconButtonSmState extends State<AppIconButtonSm> {
+class _CustumIconButtonSmState extends State<CustumIconButtonSm> {
   @override
   Widget build(BuildContext context) {
     return Container(

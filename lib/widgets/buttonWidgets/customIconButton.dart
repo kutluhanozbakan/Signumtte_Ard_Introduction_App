@@ -1,7 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 
-class AppIconButton extends StatelessWidget {
+class CustomIconButton extends StatelessWidget {
   final VoidCallback? onTap;
   final String name;
   final Color? colors;
@@ -17,7 +19,7 @@ class AppIconButton extends StatelessWidget {
   final num textOutSpace_right;
   final Color? textColor;
   final num textSize;
-  AppIconButton({
+  CustomIconButton({
     Key? key,
     this.onTap,
     this.name = "İsim",

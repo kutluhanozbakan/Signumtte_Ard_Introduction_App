@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/utils.dart';
 
-class AppButton extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   final VoidCallback? onTap;
   final String name;
   final Color? colors;
@@ -14,7 +14,7 @@ class AppButton extends StatelessWidget {
   final bool isIcon;
   final double width;
   final double height;
-  AppButton({
+  CustomButton({
     Key? key,
     this.height = height_16,
     this.width = height_1,

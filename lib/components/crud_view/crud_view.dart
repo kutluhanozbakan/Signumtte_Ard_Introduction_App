@@ -5,8 +5,8 @@ import 'package:flutter_introduction_app_ard_grup/providers/crud_view_provider.d
 import 'package:flutter_introduction_app_ard_grup/utils/global_utils.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/utils.dart';
+import 'package:flutter_introduction_app_ard_grup/widgets/buttonWidgets/customIconButton.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/commons.dart';
-import 'package:flutter_introduction_app_ard_grup/widgets/customIconButton.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/customTextFormField.dart';
 import 'package:provider/provider.dart';
 
@@ -122,7 +122,7 @@ class _CrudViewState extends State<CrudView> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    AppIconButton(
+                    CustomIconButton(
                       colors: APPColors.Secondary.red,
                       height: height_18,
                       width: height_3,
@@ -133,7 +133,7 @@ class _CrudViewState extends State<CrudView> {
                       ),
                       onTap: () => crudProvider.clearForm(),
                     ),
-                    AppIconButton(
+                    CustomIconButton(
                       colors: crudProvider.isUpdateActivated
                           ? APPColors.Secondary.orange
                           : APPColors.Main.blue,
