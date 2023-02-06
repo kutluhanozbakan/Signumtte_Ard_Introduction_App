@@ -1,52 +1,5 @@
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
-
-CustomAlertDialog(
-    BuildContext context,
-    VoidCallback? onConfirm,
-    String title,
-    String text,
-    ArtSweetAlertType type,
-    String confirmButtonText,
-    String denyButtonText) {
-  return ArtSweetAlert.show(
-      barrierDismissible: false,
-      context: context,
-      artDialogArgs: ArtDialogArgs(
-          cancelButtonColor: APPColors.Main.red,
-          confirmButtonColor: APPColors.Main.blue,
-          type: type,
-          title: title,
-          text: text,
-          confirmButtonText: confirmButtonText,
-          denyButtonText: denyButtonText,
-          onCancel: () {
-            Navigator.pop(context);
-          },
-          onConfirm: onConfirm));
-}
-
-CustomAlertDialogOnlyConfirm(
-  BuildContext context,
-  VoidCallback? onConfirm,
-  String title,
-  String text,
-  ArtSweetAlertType type,
-  String confirmButtonText,
-) {
-  return ArtSweetAlert.show(
-      barrierDismissible: false,
-      context: context,
-      artDialogArgs: ArtDialogArgs(
-          cancelButtonColor: APPColors.Main.red,
-          confirmButtonColor: APPColors.Main.blue,
-          type: type,
-          title: title,
-          text: text,
-          confirmButtonText: confirmButtonText,
-          onConfirm: onConfirm));
-}
 
 SimpleShowDialog(
   BuildContext context,

@@ -4,12 +4,13 @@ import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/models/http_response.model.dart';
 import 'package:flutter_introduction_app_ard_grup/models/user.model.dart';
-import 'package:flutter_introduction_app_ard_grup/widgets/customAlertDialog.dart';
+import 'package:flutter_introduction_app_ard_grup/widgets/dialogWidgets/customAlertDialog.dart';
 import 'package:intl/intl.dart';
 
 import '../api/api_repository.dart';
 import '../models/list_view.model.dart';
 import '../utils/api_urls.dart';
+import '../widgets/dialogWidgets/customDialogOnlyConfirm.dart';
 
 class CrudViewProvider extends ChangeNotifier {
   final apirepository = APIRepository();

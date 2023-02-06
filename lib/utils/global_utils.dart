@@ -5,10 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/components/login/login.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/utils.dart';
-import '../widgets/customAlertDialog.dart';
+import '../widgets/dialogWidgets/customAlertDialog.dart';
 import '../widgets/customDialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/customLoadingScreenDialog.dart';
+import '../widgets/dialogWidgets/customDialogOnlyConfirm.dart';
 
 Future logout(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -190,111 +191,4 @@ String? formLength(String? fieldContent) {
   if (fieldContent!.length < 3) {
     return "Bu alan 3 karakterden az olamaz";
   }
-}
-
-//CUSTOM DIALOGS
-CustomDialogs1(
-    BuildContext context,
-    String header,
-    String subHeader,
-    String okText,
-    String denyText,
-    VoidCallback okPress,
-    VoidCallback denyPress) {
-  return showDialog<void>(
-    context: context,
-    barrierDismissible: false,
-    builder: (BuildContext context) {
-      return CupertinoAlertDialog(
-        title: Text(
-          header,
-          style: TextStyle(height: 1.2, fontWeight: FontWeight.w600),
-        ),
-        content: Container(
-          margin: EdgeInsets.only(top: 16),
-          child: Text(
-            subHeader,
-            style: TextStyle(height: 1.2, fontWeight: FontWeight.w400),
-          ),
-        ),
-        actions: <Widget>[
-          CupertinoDialogAction(
-            onPressed: denyPress,
-            child: Text(denyText,
-                style: TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.3)),
-          ),
-          CupertinoDialogAction(
-            onPressed: okPress,
-            child: Text(okText,
-                style: TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.3)),
-          ),
-        ],
-      );
-    },
-  );
-}
-
-CustomDialog2(BuildContext context, String header, String subHeader,
-    String okText, VoidCallback okPress) {
-  return showDialog<void>(
-    context: context,
-    barrierDismissible: false,
-    builder: (BuildContext context) {
-      return CupertinoAlertDialog(
-        title: Text(header, style: TextStyle(fontWeight: FontWeight.w600)),
-        content: Container(
-          margin: EdgeInsets.only(top: 16),
-          child: Text(subHeader, style: TextStyle(fontWeight: FontWeight.w400)),
-        ),
-        actions: <Widget>[
-          CupertinoDialogAction(
-              child: Text(okText,
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.3)),
-              onPressed: okPress),
-        ],
-      );
-    },
-  );
-}
-
-CustomDialogActionSheet(BuildContext context, String header, String subHeader,
-    List<Widget> actions) {
-  return showCupertinoModalPopup(
-      context: context,
-      builder: (context) => CupertinoActionSheet(
-            title: Text(header,
-                style:
-                    TextStyle(fontWeight: FontWeight.w600, letterSpacing: 0.5)),
-            message: Text(subHeader,
-                style:
-                    TextStyle(fontWeight: FontWeight.w600, letterSpacing: 0.5)),
-            actions: actions,
-            cancelButton: CupertinoActionSheetAction(
-              child: Text("Cancel",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, letterSpacing: 0.5)),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ));
-}
-
-CustomDialogActionSheetButtons(BuildContext context, String header) {
-  return CupertinoActionSheetAction(
-    child: Text(header,
-        style: TextStyle(fontWeight: FontWeight.w600, letterSpacing: 0.5)),
-    onPressed: () {
-      Navigator.pop(context);
-    },
-  );
 }

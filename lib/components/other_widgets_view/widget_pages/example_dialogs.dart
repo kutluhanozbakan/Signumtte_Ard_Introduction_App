@@ -1,12 +1,18 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/buttonWidgets/customButtonWithGradient.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/commons.dart';
+import 'package:flutter_introduction_app_ard_grup/widgets/dialogWidgets/customCuppertinoDialog2.dart';
 
 import '../../../utils/global_utils.dart';
 import '../../../widgets/cardWidgets/customCardWithImage.dart';
+import '../../../widgets/dialogWidgets/customActionSheetBottomDialog.dart';
+import '../../../widgets/dialogWidgets/customAlertDialog.dart';
+import '../../../widgets/dialogWidgets/customCuppertinoDialog.dart';
 
 class ExampleDialogs extends StatefulWidget {
   const ExampleDialogs({super.key});
@@ -32,7 +38,7 @@ class _ExampleDialogsState extends State<ExampleDialogs> {
           padding: const EdgeInsets.only(top: 58.0),
           child: CustomButtonWithGradient(
               onPressed: () {
-                CustomDialogs1(
+                CustomCuppertinoDialogs1(
                     context,
                     "Örnek Dialog Başlığı",
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
@@ -51,7 +57,7 @@ class _ExampleDialogsState extends State<ExampleDialogs> {
             gradient: LinearGradient(
                 colors: [APPColors.Main.red, APPColors.Main.white]),
             onPressed: () {
-              CustomDialog2(
+              CustomCuppertinoDialog2(
                   context,
                   "Örnek Dialog Başlığı",
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
@@ -78,6 +84,23 @@ class _ExampleDialogsState extends State<ExampleDialogs> {
             },
             width: MediaQuery.of(context).size.width / 1.5,
             child: Text("Örnek 3")),
+        customDivider(20),
+        CustomButtonWithGradient(
+            gradient:
+                LinearGradient(colors: [Colors.green, APPColors.Main.white]),
+            onPressed: () {
+              CustomDialogActionSheet(
+                  context,
+                  "Örnek Dialog Başlığı",
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+                  [
+                    CustomDialogActionSheetButtons(context, "Action 1"),
+                    CustomDialogActionSheetButtons(context, "Action 2"),
+                    CustomDialogActionSheetButtons(context, "Action 3"),
+                  ]);
+            },
+            width: MediaQuery.of(context).size.width / 1.5,
+            child: Text("Örnek 4")),
       ]),
     );
   }

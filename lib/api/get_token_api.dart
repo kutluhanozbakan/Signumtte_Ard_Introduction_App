@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, depend_on_referenced_packages
 
+import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/components/main_page_view/main_page_view.dart';
+import 'package:flutter_introduction_app_ard_grup/widgets/dialogWidgets/customDialogOnlyConfirm.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/list_view/list_view.dart';
 import '../components/login/login.dart';
@@ -49,6 +51,11 @@ void tokenGet(BuildContext context) async {
     if (apiResult.success!) {
       Navigator.push(
           context, MaterialPageRoute(builder: ((context) => const MainPage())));
+    } else {
+      CustomAlertDialogOnlyConfirm(context, () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: ((context) => const Login())));
+      }, "Uyarı", apiResult.message!, ArtSweetAlertType.warning, "Tamam");
     }
   } else {
     //token bilgisi yok ise login ekranına gönderilir.
