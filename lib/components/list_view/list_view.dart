@@ -10,7 +10,7 @@ import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/utils.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/commons.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/customDialog.dart';
-import 'package:flutter_introduction_app_ard_grup/widgets/customListTile.dart';
+import 'package:flutter_introduction_app_ard_grup/widgets/ListWidgets/customListWidgetSimple.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/dialogWidgets/customAlertDialog.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +18,7 @@ import '../../api/api_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/global_utils.dart';
 import '../../widgets/customInfoNotFound.dart';
-import '../../widgets/customTaskListWidget.dart';
+import '../../widgets/ListWidgets/customTaskListWidget.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({Key? key, required this.pageController}) : super(key: key);
@@ -115,17 +115,16 @@ class _ListScreenState extends State<ListScreen> {
                                               listViewProvider.pageController!);
                                         },
                                         importanceLevelColor: generateColor(l),
-                                        taskDate: formattedDate,
+                                        trailing: formattedDate,
                                         taskNo: i.toString(),
-                                        taskSubject:
-                                            listElements.description == ""
-                                                ? "Açıklama ${i + 1}"
-                                                : listElements.description,
-                                        taskPerson: listElements.isRead == false
+                                        title: listElements.description == ""
+                                            ? "Açıklama ${i + 1}"
+                                            : listElements.description,
+                                        subTitle: listElements.isRead == false
                                             ? "Okundu"
                                             : "Okunmadı",
                                         isIcon: true,
-                                        taskProjectName:
+                                        extraTitle:
                                             "Lorem ipsum dolor sit amet",
                                       ),
                                     ),

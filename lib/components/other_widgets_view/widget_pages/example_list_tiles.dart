@@ -5,9 +5,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../../widgets/ListWidgets/customDefaultListWidgets.dart';
+import '../../../widgets/ListWidgets/customListWithAvatar.dart';
 import '../../../widgets/cardWidgets/customCardWithImage.dart';
-import '../../../widgets/customListTile.dart';
-import '../../../widgets/customTaskListWidget.dart';
+import '../../../widgets/ListWidgets/customListWidgetSimple.dart';
+import '../../../widgets/ListWidgets/customTaskListWidget.dart';
 
 class ExampleListTiles extends StatefulWidget {
   const ExampleListTiles({super.key});
@@ -42,10 +43,9 @@ class _ExampleListTilesState extends State<ExampleListTiles> {
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit ",
                 isIcon: false,
               ),
-
               Padding(
                 padding: EdgeInsets.only(left: 40.0, right: 38, top: 25),
-                child: AppListTileWithAvatar(
+                child: CustomListWithAvatar(
                   icon: Icons.info,
                   onTap: () {},
                   iconText: "1",
@@ -57,15 +57,23 @@ class _ExampleListTilesState extends State<ExampleListTiles> {
               ),
               Padding(
                 padding: EdgeInsets.only(left: 40.0, right: 38, top: 25),
+                child: CustomListWidgetSimple(
+                  icon: Icons.info,
+                  baslik: "Test",
+                  icerik: "İçerik",
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 40.0, right: 38, top: 25),
                 child: TaskListWidget(
                   iconOnPressed: () {},
                   importanceLevelColor: Colors.green,
-                  taskDate: "12.12.2023",
+                  trailing: "12.12.2023",
                   taskNo: "Deneme",
-                  taskSubject: "Deneme Başlık 3",
-                  taskPerson: "Test",
+                  title: "Deneme Başlık 3",
+                  subTitle: "Test",
                   isIcon: true,
-                  taskProjectName: "Lorem ipsum dolor sit amet",
+                  extraTitle: "Lorem ipsum dolor sit amet",
                 ),
               ),
               Padding(
@@ -78,18 +86,6 @@ class _ExampleListTilesState extends State<ExampleListTiles> {
                   isIcon: true,
                 ),
               ),
-              // Padding(
-              //   padding:
-              //       EdgeInsets.all(MediaQuery.of(context).size.height / 35),
-              //   child: ListWidgetExtended(
-              //     childrenLeftSide: [Text("Lorem ipsum dolor sit amet")],
-              //     childrenRightSide: [Text("12.12.2023")],
-              //     isButton: true,
-              //     isTitle: true,
-              //     press: () {},
-              //     title: "Örnek Başlık 4",
-              //   ),
-              // )
             ],
           )
         ],

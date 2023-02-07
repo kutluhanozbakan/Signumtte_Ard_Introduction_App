@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../buttonWidgets/customButtonWithGradient.dart';
+import 'buttonWidgets/customButtonWithGradient.dart';
 
 class CustomCalendar extends StatefulWidget {
   const CustomCalendar({Key? key}) : super(key: key);

@@ -12,7 +12,7 @@ import 'package:flutter_introduction_app_ard_grup/components/other_widgets_view/
 import 'package:flutter_introduction_app_ard_grup/components/other_widgets_view/widget_pages/text_form_fields.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/utils.dart';
-import 'package:flutter_introduction_app_ard_grup/widgets/other_widgets/customCalendar.dart';
+import 'package:flutter_introduction_app_ard_grup/widgets/customCalendar.dart';
 
 import '../../widgets/cardWidgets/customCardWithImage.dart';
 import '../../widgets/cardWidgets/customCardWithImageSmall.dart';

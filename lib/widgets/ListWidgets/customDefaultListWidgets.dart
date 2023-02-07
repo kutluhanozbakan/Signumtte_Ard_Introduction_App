@@ -38,7 +38,7 @@ class _CustomDefaultListWidgetsState extends State<CustomDefaultListWidgets> {
               ? Padding(
                   padding: EdgeInsets.only(
                       right: MediaQuery.of(context).size.width / 30,
-                      left: MediaQuery.of(context).size.width / 15),
+                      left: MediaQuery.of(context).size.width / 30),
                   child: Icon(
                     widget.icon,
                     color: widget.iconColors,

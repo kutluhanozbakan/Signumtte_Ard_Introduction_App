@@ -3,115 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 
-import '../utils/utils.dart';
-
-class ListWidgetExtended extends StatefulWidget {
-  final Color? importanceLevelColor;
-  final List<Widget> childrenLeftSide;
-  final List<Widget> childrenRightSide;
-  final VoidCallback? press;
-  final String title;
-  final bool isButton;
-  final bool isTitle;
-  const ListWidgetExtended(
-      {Key? key,
-      this.press,
-      this.importanceLevelColor,
-      required this.childrenLeftSide,
-      required this.childrenRightSide,
-      this.title = "",
-      this.isTitle = false,
-      this.isButton = false})
-      : super(key: key);
-
-  @override
-  State<ListWidgetExtended> createState() => _ListWidgetExtendedState();
-}
-
-class _ListWidgetExtendedState extends State<ListWidgetExtended> {
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: GestureDetector(
-        onTap: widget.press,
-        child: Container(
-          width: size.width,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                  color: container_box_shadow,
-                  blurRadius: radius_size_10,
-                  offset: Offset(radius_size_0, radius_size_10))
-            ],
-            color: Color(0xfff6f6f6),
-          ),
-          child: Padding(
-            padding:
-                const EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 0),
-            child: Column(
-              children: [
-                widget.isTitle
-                    ? Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  widget.title,
-                                ),
-                                widget.isButton
-                                    ? ElevatedButton(
-                                        onPressed: widget.press,
-                                        child: Icon(
-                                          Icons.check,
-                                          color: APPColors.Main.white,
-                                        ))
-                                    : Container(),
-                              ],
-                            )),
-                      )
-                    : Container(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: widget.childrenLeftSide,
-                        ),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: widget.childrenRightSide,
-                              ),
-                            ]),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+import '../../utils/utils.dart';
 
 class TaskListWidget extends StatelessWidget {
-  final String? taskSubject, taskProjectName, taskNo, taskPerson, taskDate;
+  final String? title, extraTitle, taskNo, subTitle, trailing;
   final Color? importanceLevelColor;
 
   final VoidCallback? press;
@@ -119,11 +14,11 @@ class TaskListWidget extends StatelessWidget {
   final VoidCallback? iconOnPressed;
   const TaskListWidget(
       {Key? key,
-      this.taskSubject,
-      this.taskProjectName,
+      this.title,
+      this.extraTitle,
       this.taskNo,
-      this.taskPerson,
-      this.taskDate,
+      this.subTitle,
+      this.trailing,
       this.press,
       this.importanceLevelColor,
       this.isIcon = false,
@@ -175,7 +70,7 @@ class TaskListWidget extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
-                          taskSubject.toString(),
+                          title.toString(),
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -188,14 +83,12 @@ class TaskListWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  taskPerson.toString() != ""
-                      ? SizedBox(height: 3)
-                      : Container(),
-                  taskPerson.toString() != ""
+                  subTitle.toString() != "" ? SizedBox(height: 3) : Container(),
+                  subTitle.toString() != ""
                       ? SizedBox(
                           width: MediaQuery.of(context).size.width / 2,
                           child: Text(
-                            taskPerson.toString(),
+                            subTitle.toString(),
                             style: TextStyle(
                               fontWeight: FontWeight.normal,
                               color: Color(0xff025273),
@@ -209,7 +102,7 @@ class TaskListWidget extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Text(
-                        taskProjectName.toString(),
+                        extraTitle.toString(),
                         style: TextStyle(
                           color: Color(0xff025273),
                           fontSize: 13,
@@ -236,7 +129,7 @@ class TaskListWidget extends StatelessWidget {
                       ),
                       SizedBox(height: 6),
                       Text(
-                        taskDate.toString(),
+                        trailing.toString(),
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           color: Color(0xff025273),

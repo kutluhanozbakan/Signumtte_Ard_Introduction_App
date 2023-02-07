@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../../widgets/cardWidgets/customCardWithImage.dart';
-import '../../../widgets/other_widgets/customCalendar.dart';
+import '../../../widgets/customCalendar.dart';
 
 class ExampleCalendar extends StatefulWidget {
   const ExampleCalendar({super.key});
