@@ -120,88 +120,89 @@ class _CrudViewState extends State<CrudView> {
                                       offset:
                                           Offset(radius_size_0, radius_size_10))
                                 ]),
-                            child: CustomDropdown(
-                              onChanged: (val) {
-                                crudProvider.setdescriptionReadedController =
-                                    val!;
-                                if (crudProvider.descriptionReadedController
-                                    .text.isNotEmpty) {
-                                  crudProvider.setIsKurumTuruEmpty = false;
-                                } else {
-                                  crudProvider.setIsKurumTuruEmpty = true;
-                                }
-                              },
-                              disableClear: true,
-                              icons: Icons.notification_add,
-                              listHeight: 2,
-                              controller:
-                                  crudProvider.descriptionReadedController,
-                              header: "Bildirim Durumu",
-                              items: ["Evet", "Hayır"],
+                            child: Column(
+                              children: [
+                                CustomDropdown(
+                                  onChanged: (val) {
+                                    crudProvider
+                                        .setdescriptionReadedController = val!;
+                                    if (crudProvider.descriptionReadedController
+                                        .text.isNotEmpty) {
+                                      crudProvider.setIsKurumTuruEmpty = false;
+                                    } else {
+                                      crudProvider.setIsKurumTuruEmpty = true;
+                                    }
+                                  },
+                                  disableClear: true,
+                                  icons: Icons.notification_add,
+                                  listHeight: 2,
+                                  controller:
+                                      crudProvider.descriptionReadedController,
+                                  header: "Bildirim Durumu",
+                                  items: ["Evet", "Hayır"],
+                                ),
+                                crudProvider.iskurumTuruEmpty
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    19,
+                                                bottom: 10),
+                                            child: Text(
+                                              "Bu alan boş olamaz",
+                                              style: TextStyle(
+                                                  color: APPColors.Main.red,
+                                                  fontSize: height_12,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    : Container(),
+                              ],
                             ),
                           ),
-                          crudProvider.iskurumTuruEmpty
-                              ? Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              12),
-                                      child: Text(
-                                        "Bu alan boş bırakılamaz",
-                                        style: TextStyle(
-                                            color: APPColors.Main.red,
-                                            fontSize: height_12,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              : Container(),
                         ],
                         sectionName: "Notification Bilgileri"),
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height / height_8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    CustomIconButton(
-                      colors: APPColors.Secondary.red,
-                      height: height_18,
-                      width: height_3,
-                      name: "Temizle",
-                      icons: Icon(
-                        Icons.delete,
-                        color: APPColors.Main.white,
-                      ),
-                      onTap: () => crudProvider.clearForm(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CustomIconButton(
+                    colors: APPColors.Secondary.red,
+                    height: height_18,
+                    width: height_3,
+                    name: "Temizle",
+                    icons: Icon(
+                      Icons.delete,
+                      color: APPColors.Main.white,
                     ),
-                    CustomIconButton(
-                      colors: crudProvider.isUpdateActivated
-                          ? APPColors.Secondary.orange
-                          : APPColors.Main.blue,
-                      height: height_18,
-                      width: height_3,
-                      name: crudProvider.isUpdateActivated
-                          ? "Güncelle"
-                          : "Kaydet",
-                      icons: Icon(
-                        Icons.add,
-                        color: crudProvider.isUpdateActivated
-                            ? APPColors.Secondary.white
-                            : APPColors.Main.white,
-                      ),
-                      onTap: () => crudProvider.addOrUpdateForm(context),
+                    onTap: () => crudProvider.clearForm(),
+                  ),
+                  CustomIconButton(
+                    colors: crudProvider.isUpdateActivated
+                        ? APPColors.Secondary.orange
+                        : APPColors.Main.blue,
+                    height: height_18,
+                    width: height_3,
+                    name:
+                        crudProvider.isUpdateActivated ? "Güncelle" : "Kaydet",
+                    icons: Icon(
+                      Icons.add,
+                      color: crudProvider.isUpdateActivated
+                          ? APPColors.Secondary.white
+                          : APPColors.Main.white,
                     ),
-                  ],
-                ),
+                    onTap: () => crudProvider.addOrUpdateForm(context),
+                  ),
+                ],
               )
             ],
           ),
