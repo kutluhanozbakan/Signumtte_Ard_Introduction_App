@@ -1,5 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, prefer_const_constructors
 
+import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/components/login/login.dart';
 import 'package:flutter_introduction_app_ard_grup/models/list_view.model.dart';
@@ -8,12 +9,16 @@ import 'package:flutter_introduction_app_ard_grup/providers/list_view_provider.d
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/utils.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/commons.dart';
+import 'package:flutter_introduction_app_ard_grup/widgets/customDialog.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/customListTile.dart';
+import 'package:flutter_introduction_app_ard_grup/widgets/dialogWidgets/customAlertDialog.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../api/api_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/global_utils.dart';
 import '../../widgets/customInfoNotFound.dart';
+import '../../widgets/customTaskListWidget.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({Key? key, required this.pageController}) : super(key: key);
@@ -45,22 +50,36 @@ class _ListScreenState extends State<ListScreen> {
 
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => const Login()),
-            (route) => false);
+        CustomAlertDialog(context, () async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.clear();
+          // ignore: use_build_context_synchronously
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const Login()),
+              (route) => true);
+        }, "Emin misiniz", "Çıkış Yapılacaktır", ArtSweetAlertType.info,
+            "Tamam", "Vazgeç");
         return true;
       },
       child: Scaffold(
           appBar: AppBar(
+            backgroundColor: APPColors.Main.blue,
             title: Text("Listeleme"),
             centerTitle: true,
             leading: IconButton(
                 onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Login()),
-                      (route) => false);
+                  CustomAlertDialog(context, () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.clear();
+                    // ignore: use_build_context_synchronously
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Login()),
+                        (route) => true);
+                  }, "Emin misiniz", "Çıkış Yapılacaktır",
+                      ArtSweetAlertType.info, "Tamam", "Vazgeç");
                 },
                 icon: const Icon(Icons.home)),
             actions: [sayfaYenile()],
@@ -107,30 +126,53 @@ class _ListScreenState extends State<ListScreen> {
                                 return Column(
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.all(
-                                          MediaQuery.of(context).size.height /
-                                              80),
-                                      child: AppListTileWithAvatar(
-                                        icon: Icons.edit,
-                                        onTap: () {
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: TaskListWidget(
+                                        iconOnPressed: () {
                                           crudProvider.fillForm(
                                               context,
                                               listElements,
                                               listViewProvider.pageController!);
                                         },
-                                        iconColor: generateColor(l),
-                                        transactionIcon: i.toString(),
-                                        transactionAmount: formattedDate,
-                                        transactionAmountHeight: 40,
-                                        transactionName:
+                                        importanceLevelColor: generateColor(l),
+                                        taskDate: formattedDate,
+                                        taskNo: i.toString(),
+                                        taskSubject:
                                             listElements.description == ""
                                                 ? "Açıklama ${i + 1}"
                                                 : listElements.description,
-                                        transactionType:
-                                            listElements.isDelete.toString(),
+                                        taskPerson:
+                                            listElements.isDelete == false
+                                                ? "Silindi"
+                                                : "Silinmedi",
+                                        isIcon: true,
+                                        taskProjectName:
+                                            "Lorem ipsum dolor sit amet",
                                       ),
                                     ),
-                                    customDivider(0)
+                                    // Padding(
+                                    //   padding: EdgeInsets.all(
+                                    //       MediaQuery.of(context).size.height /
+                                    //           80),
+                                    //   child: AppListTileWithAvatar(
+                                    //     icon: Icons.edit,
+                                    //     onTap: () {
+                                    //       crudProvider.fillForm(
+                                    //           context,
+                                    //           listElements,
+                                    //           listViewProvider.pageController!);
+                                    //     },
+                                    //     iconColor: generateColor(l),
+                                    //     iconText: i.toString(),
+                                    //     extraTitle: formattedDate,
+                                    //     extraTitleHeight: 25,
+                                    //     title: listElements.description == ""
+                                    //         ? "Açıklama ${i + 1}"
+                                    //         : listElements.description,
+                                    //     subTitle:
+                                    //         listElements.isDelete.toString(),
+                                    //   ),
+                                    // ),
                                   ],
                                 );
                               }),

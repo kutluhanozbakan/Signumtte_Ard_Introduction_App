@@ -13,6 +13,7 @@ class CustomButton extends StatelessWidget {
   final Color? textColor;
   final bool isIcon;
   final double width;
+  final double? inlinePadding;
   final double height;
   CustomButton({
     Key? key,
@@ -25,6 +26,7 @@ class CustomButton extends StatelessWidget {
     this.colors,
     this.icons,
     this.disable = false,
+    this.inlinePadding = 0.0,
   });
   @override
   Widget build(BuildContext context) {
@@ -44,12 +46,15 @@ class CustomButton extends StatelessWidget {
                           : textColor ?? APPColors.Main.white,
                     )
                   : Container(),
-              Text(
-                name,
-                style: TextStyle(
-                    color: disable == true
-                        ? APPColors.Main.white
-                        : textColor ?? APPColors.Main.white),
+              Padding(
+                padding: EdgeInsets.only(left: inlinePadding!),
+                child: Text(
+                  name,
+                  style: TextStyle(
+                      color: disable == true
+                          ? APPColors.Main.white
+                          : textColor ?? APPColors.Main.white),
+                ),
               ),
             ],
           ),

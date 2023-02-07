@@ -3,64 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 
-class ListWidgetExtendedContent extends StatefulWidget {
-  final String? name;
-  final bool isIcon;
-  final IconData icon;
-  final Color iconColors;
-
-  const ListWidgetExtendedContent({
-    Key? key,
-    this.name,
-    this.isIcon = false,
-    this.icon = Icons.date_range,
-    this.iconColors = Colors.grey,
-  }) : super(key: key);
-
-  @override
-  State<ListWidgetExtendedContent> createState() =>
-      _ListWidgetExtendedContentState();
-}
-
-class _ListWidgetExtendedContentState extends State<ListWidgetExtendedContent> {
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          widget.isIcon
-              ? Padding(
-                  padding: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.width / 30),
-                  child: Icon(
-                    widget.icon,
-                    color: widget.iconColors,
-                  ),
-                )
-              : Padding(
-                  padding: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.width / 30),
-                  child: Icon(
-                    widget.icon,
-                    color: APPColors.Main.white,
-                  ),
-                ),
-          Container(
-            width: MediaQuery.of(context).size.width / 3.5,
-            child: Text(
-              widget.name.toString(),
-              softWrap: true,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 5,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+import '../utils/utils.dart';
 
 class ListWidgetExtended extends StatefulWidget {
   final Color? importanceLevelColor;
@@ -98,10 +41,9 @@ class _ListWidgetExtendedState extends State<ListWidgetExtended> {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Color(0x19025273),
-                blurRadius: 12,
-                offset: Offset(6, 8),
-              ),
+                  color: container_box_shadow,
+                  blurRadius: radius_size_10,
+                  offset: Offset(radius_size_0, radius_size_10))
             ],
             color: Color(0xfff6f6f6),
           ),
@@ -111,44 +53,52 @@ class _ListWidgetExtendedState extends State<ListWidgetExtended> {
             child: Column(
               children: [
                 widget.isTitle
-                    ? Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              widget.title,
-                            ),
-                            widget.isButton
-                                ? ElevatedButton(
-                                    onPressed: widget.press,
-                                    child: Icon(
-                                      Icons.check,
-                                      color: APPColors.Main.white,
-                                    ))
-                                : Container(),
-                          ],
-                        ))
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  widget.title,
+                                ),
+                                widget.isButton
+                                    ? ElevatedButton(
+                                        onPressed: widget.press,
+                                        child: Icon(
+                                          Icons.check,
+                                          color: APPColors.Main.white,
+                                        ))
+                                    : Container(),
+                              ],
+                            )),
+                      )
                     : Container(),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: widget.childrenLeftSide,
-                      ),
-                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: widget.childrenRightSide,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: widget.childrenLeftSide,
                         ),
-                      ]),
-                    ],
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: widget.childrenRightSide,
+                              ),
+                            ]),
+                      ],
+                    ),
                   ),
                 ),
               ],

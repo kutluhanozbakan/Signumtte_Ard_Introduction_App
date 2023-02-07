@@ -79,7 +79,7 @@ class _CustomCardWithImageState extends State<CustomCardWithImage> {
                       widget.cardName,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 17,
                           color: Color(0xFF363f93),
                           fontWeight: FontWeight.bold),
                     ),

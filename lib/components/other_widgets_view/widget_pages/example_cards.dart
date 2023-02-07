@@ -21,37 +21,47 @@ class _ExampleCardsState extends State<ExampleCards> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 58.0),
+            padding:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height / 50),
             child: CustomCardWithImage(
               cardName: "Card Örnekleri",
               isIcon: false,
             ),
           ),
-          CustomBox(
-            icon: Icons.info_outline,
-            isIcon: true,
-            iconSize: 50,
-            descriptionPadding: 10,
-            width: MediaQuery.of(context).size.width / 1.12,
-            height: MediaQuery.of(context).size.height / 6,
-            description: "Örnek Açıklama",
-            boxColor: APPColors.Main.blue,
-            title: "Başlık",
-            titleColor: Colors.white,
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width / 20),
+              shrinkWrap: true,
+              physics: AlwaysScrollableScrollPhysics(),
+              children: [
+                CustomBox(
+                  icon: Icons.info_outline,
+                  isIcon: true,
+                  iconSize: 50,
+                  descriptionPadding: 10,
+                  width: MediaQuery.of(context).size.width / 1.12,
+                  height: MediaQuery.of(context).size.height / 6,
+                  description: "Örnek Açıklama",
+                  boxColor: APPColors.Main.blue,
+                  title: "Başlık",
+                  titleColor: Colors.white,
+                ),
+                CustomCardWithImage(
+                  cardName: "Örnek Card 1",
+                  imageUrl: APPImages.defaultImage.images,
+                  isIcon: false,
+                ),
+                CustomCardWithImageSmall(
+                  backgroundColor: APPColors.Secondary.orange,
+                  iconColor: APPColors.Main.white,
+                  textColor: APPColors.Main.white,
+                  icon: APPImages.defaultImage.images,
+                  title: "Örnek",
+                  isNavigation: false,
+                )
+              ],
+            ),
           ),
-          CustomCardWithImage(
-            cardName: "Örnek Card 1",
-            imageUrl: APPImages.defaultImage.images,
-            isIcon: false,
-          ),
-          CustomCardWithImageSmall(
-            backgroundColor: APPColors.Secondary.orange,
-            iconColor: APPColors.Main.white,
-            textColor: APPColors.Main.white,
-            icon: APPImages.defaultImage.images,
-            title: "Örnek",
-            isNavigation: false,
-          )
         ],
       ),
     );

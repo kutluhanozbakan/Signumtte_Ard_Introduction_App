@@ -27,7 +27,8 @@ class _ExampleTextFormFieldsState extends State<ExampleTextFormFields> {
         Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 38.0),
+              padding:
+                  EdgeInsets.only(top: MediaQuery.of(context).size.height / 50),
               child: CustomCardWithImage(
                 cardName: "TextFormField Örnekleri",
                 isIcon: false,

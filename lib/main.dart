@@ -20,7 +20,7 @@ void main() {
       debugShowCheckedModeBanner: false,
       title: 'ARD Tanitim Uygulamasi',
       home: const MyHomePage(),
-      theme: ThemeData(fontFamily: 'Raleway'),
+      theme: ThemeData(fontFamily: 'Raleway', dividerColor: Colors.transparent),
     ),
   ));
 }

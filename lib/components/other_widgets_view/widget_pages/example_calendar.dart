@@ -19,7 +19,8 @@ class _ExampleCalendarState extends State<ExampleCalendar> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 38.0),
+            padding:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height / 50),
             child: CustomCardWithImage(
               cardName: "Takvim Örneği",
               isIcon: false,

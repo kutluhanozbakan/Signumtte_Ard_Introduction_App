@@ -42,7 +42,9 @@ class _CrudViewState extends State<CrudView> {
     final crudProvider = Provider.of<CrudViewProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: APPColors.Main.blue,
+      ),
       body: SingleChildScrollView(
         child: Form(
           key: crudProvider.crudFormKey,
@@ -52,73 +54,121 @@ class _CrudViewState extends State<CrudView> {
                   context,
                   "Örnek Kayıt ${crudProvider.isUpdateActivated ? 'Güncelleme' : 'Ekleme'} Ekranı",
                   logoHeader()),
-              CustomTextFormField(
-                  // ignore: sort_child_properties_last
+              Padding(
+                padding: const EdgeInsets.all(height_14),
+                child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(height_14),
-                      child: CustomTextFormFieldContent(
-                          icon: Icons.text_format,
-                          iconColor: APPColors.Secondary.blue,
-                          validator: formBos,
-                          controller: crudProvider.descriptionController,
-                          name: "Bildirim İsmi"),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(height_14),
-                      child: CustomTextFormFieldContent(
-                          icon: Icons.date_range,
-                          isSuffix: false,
-                          isDate: true,
-                          validator: formBos,
-                          isTime: true,
-                          controller: crudProvider.descriptionDateController,
-                          name: "Bildirim Tarihi"),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(height_14),
-                      child: CustomDropdown(
-                        onChanged: (val) {
-                          crudProvider.setdescriptionReadedController = val!;
-                          if (crudProvider
-                              .descriptionReadedController.text.isNotEmpty) {
-                            crudProvider.setIsKurumTuruEmpty = false;
-                          } else {
-                            crudProvider.setIsKurumTuruEmpty = true;
-                          }
-                        },
-                        disableClear: true,
-                        icons: Icons.notification_add,
-                        listHeight: 2,
-                        controller: crudProvider.descriptionReadedController,
-                        header: "Bildirim Durumu",
-                        items: ["Evet", "Hayır"],
-                      ),
-                    ),
-                    crudProvider.iskurumTuruEmpty
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left:
-                                        MediaQuery.of(context).size.width / 12),
-                                child: Text(
-                                  "Bu alan boş bırakılamaz",
-                                  style: TextStyle(
-                                      color: APPColors.Main.red,
-                                      fontSize: height_12,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ],
-                          )
-                        : Container(),
+                    CustomTextFormField(
+                        // ignore: sort_child_properties_last
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                color: mainWhiteColor,
+                                borderRadius:
+                                    BorderRadius.circular(radius_size_10),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: container_box_shadow,
+                                      blurRadius: radius_size_10,
+                                      offset:
+                                          Offset(radius_size_0, radius_size_10))
+                                ]),
+                            child: CustomTextFormFieldContent(
+                                icon: Icons.text_format,
+                                iconColor: APPColors.Secondary.blue,
+                                validator: formBos,
+                                controller: crudProvider.descriptionController,
+                                name: "Bildirim İsmi"),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: mainWhiteColor,
+                                borderRadius:
+                                    BorderRadius.circular(radius_size_10),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: container_box_shadow,
+                                      blurRadius: radius_size_10,
+                                      offset:
+                                          Offset(radius_size_0, radius_size_10))
+                                ]),
+                            child: CustomTextFormFieldContent(
+                                icon: Icons.date_range,
+                                isSuffix: false,
+                                isDate: true,
+                                validator: formBos,
+                                isTime: true,
+                                controller:
+                                    crudProvider.descriptionDateController,
+                                name: "Bildirim Tarihi"),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: mainWhiteColor,
+                                borderRadius:
+                                    BorderRadius.circular(radius_size_10),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: container_box_shadow,
+                                      blurRadius: radius_size_10,
+                                      offset:
+                                          Offset(radius_size_0, radius_size_10))
+                                ]),
+                            child: CustomDropdown(
+                              onChanged: (val) {
+                                crudProvider.setdescriptionReadedController =
+                                    val!;
+                                if (crudProvider.descriptionReadedController
+                                    .text.isNotEmpty) {
+                                  crudProvider.setIsKurumTuruEmpty = false;
+                                } else {
+                                  crudProvider.setIsKurumTuruEmpty = true;
+                                }
+                              },
+                              disableClear: true,
+                              icons: Icons.notification_add,
+                              listHeight: 2,
+                              controller:
+                                  crudProvider.descriptionReadedController,
+                              header: "Bildirim Durumu",
+                              items: ["Evet", "Hayır"],
+                            ),
+                          ),
+                          crudProvider.iskurumTuruEmpty
+                              ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          left: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              12),
+                                      child: Text(
+                                        "Bu alan boş bırakılamaz",
+                                        style: TextStyle(
+                                            color: APPColors.Main.red,
+                                            fontSize: height_12,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Container(),
+                        ],
+                        sectionName: "Notification Bilgileri"),
                   ],
-                  sectionName: "Notification Bilgileri"),
+                ),
+              ),
               Padding(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height / height_12),
+                    top: MediaQuery.of(context).size.height / height_8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -139,8 +189,9 @@ class _CrudViewState extends State<CrudView> {
                           : APPColors.Main.blue,
                       height: height_18,
                       width: height_3,
-                      name:
-                          crudProvider.isUpdateActivated ? "Güncelle" : "Ekle",
+                      name: crudProvider.isUpdateActivated
+                          ? "Güncelle"
+                          : "Kaydet",
                       icons: Icon(
                         Icons.add,
                         color: crudProvider.isUpdateActivated

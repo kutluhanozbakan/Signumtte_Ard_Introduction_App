@@ -116,7 +116,7 @@ class CrudViewProvider extends ChangeNotifier {
     _formId = listElements.id;
     _isUpdateActivated = true;
     _pageController = pageController;
-    _pageController!.jumpToPage(1);
+    _pageController!.jumpToPage(2);
     _descriptionController.text = listElements.description!;
     DateTime dateTime = DateTime.parse(listElements.notificationDate!);
     String formattedDate = DateFormat("dd/MM/yyyy").format(dateTime);

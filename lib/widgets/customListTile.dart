@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 
 import '../utils/styles_themes.dart';
+import '../utils/utils.dart';
 import 'buttonWidgets/customIconButtonSmall.dart';
 
 class AppListTile extends StatefulWidget {
@@ -112,48 +113,56 @@ class _AppListTileHeaderState extends State<AppListTileHeader> {
 class AppListTileWithAvatar extends StatelessWidget {
   final Color? iconColor;
   final IconData? icon;
-  final String? transactionName,
-      transactionType,
-      transactionAmount,
-      transactionIcon;
+  final String? title, subTitle, extraTitle, iconText;
   final GestureTapCallback? onTap;
-  final int? transactionAmountHeight;
+  final int? extraTitleHeight;
   AppListTileWithAvatar({
     Key? key,
     this.iconColor,
-    this.transactionName,
-    this.transactionType,
-    this.transactionAmount,
-    this.transactionIcon,
+    this.title,
+    this.subTitle,
+    this.extraTitle,
+    this.iconText,
     this.onTap,
     this.icon,
-    this.transactionAmountHeight = 40,
+    this.extraTitleHeight = 40,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: ListTile(
-        title: Text(transactionName!),
-        subtitle: Stack(
-          fit: StackFit.loose,
-          children: [
-            Text(transactionType!),
-            Padding(
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height /
-                      transactionAmountHeight!),
-              child: Text(
-                transactionAmount!,
-                style: TextStyle(fontSize: 13),
-              ),
-            )
-          ],
-        ),
-        trailing: Padding(
-          padding: EdgeInsets.all(0.0),
-          child: Column(
+    return Container(
+      height: MediaQuery.of(context).size.height / 9.5,
+      decoration: BoxDecoration(
+          color: mainWhiteColor,
+          borderRadius: BorderRadius.circular(radius_size_10),
+          boxShadow: [
+            BoxShadow(
+                color: container_box_shadow,
+                blurRadius: radius_size_10,
+                offset: Offset(radius_size_0, radius_size_10))
+          ]),
+      child: Material(
+        color: Colors.transparent,
+        child: ListTile(
+          title: Text(
+            title!,
+          ),
+          subtitle: Stack(
+            fit: StackFit.loose,
+            children: [
+              Text(subTitle!),
+              Padding(
+                padding: EdgeInsets.only(
+                    top:
+                        MediaQuery.of(context).size.height / extraTitleHeight!),
+                child: Text(
+                  extraTitle!,
+                  style: TextStyle(fontSize: 13),
+                ),
+              )
+            ],
+          ),
+          trailing: Column(
             children: [
               Padding(
                 padding: EdgeInsets.only(
@@ -163,17 +172,17 @@ class AppListTileWithAvatar extends StatelessWidget {
               ),
             ],
           ),
-        ),
-        leading: CircleAvatar(
-          radius: 25,
-          child: Text(
-            transactionIcon!,
-            style: TextStyle(color: Colors.white),
+          leading: CircleAvatar(
+            radius: 25,
+            child: Text(
+              iconText!,
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: iconColor,
           ),
-          backgroundColor: iconColor,
+          enabled: true,
+          onTap: onTap,
         ),
-        enabled: true,
-        onTap: onTap,
       ),
     );
   }

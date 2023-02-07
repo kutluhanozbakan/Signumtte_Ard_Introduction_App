@@ -55,11 +55,11 @@ class _MainPageState extends State<MainPage> {
             setState(() => mainViewProvide.setcurrentIndex = index);
           },
           children: <Widget>[
+            OtherWidgetsView(),
             ListScreen(pageController: mainViewProvide.pageController!),
             CrudView(
                 listElements: new ListViewModel(),
                 pageController: mainViewProvide.pageController!),
-            OtherWidgetsView()
           ],
         ),
       ),
@@ -75,6 +75,11 @@ class _MainPageState extends State<MainPage> {
         items: <CustomBottomNavigationBarItem>[
           /*-------------- Build tabs here -----------------*/
           CustomBottomNavigationBarItem(
+              title: 'Widgetlar',
+              icon: Icon(Icons.chat_bubble),
+              activeColor: APPColors.Main.white,
+              inactiveColor: APPColors.Main.grey),
+          CustomBottomNavigationBarItem(
               title: 'Listeleme',
               icon: Icon(Icons.home),
               activeColor: APPColors.Main.white,
@@ -82,11 +87,6 @@ class _MainPageState extends State<MainPage> {
           CustomBottomNavigationBarItem(
               title: 'CRUD',
               icon: Icon(Icons.apps),
-              activeColor: APPColors.Main.white,
-              inactiveColor: APPColors.Main.grey),
-          CustomBottomNavigationBarItem(
-              title: 'Widgetlar',
-              icon: Icon(Icons.chat_bubble),
               activeColor: APPColors.Main.white,
               inactiveColor: APPColors.Main.grey),
         ],
