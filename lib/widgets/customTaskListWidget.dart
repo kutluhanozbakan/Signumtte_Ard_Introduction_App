@@ -172,15 +172,18 @@ class TaskListWidget extends StatelessWidget {
                   Flexible(
                     child: SizedBox(
                       width: size.width / 2.0,
-                      child: Text(
-                        taskSubject.toString(),
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Color(0xff025273),
-                          fontSize: 14,
-                          fontFamily: "Poppins",
-                          fontWeight: FontWeight.bold,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          taskSubject.toString(),
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Color(0xff025273),
+                            fontSize: 14,
+                            fontFamily: "Poppins",
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -203,11 +206,14 @@ class TaskListWidget extends StatelessWidget {
                       : Container(),
                   SizedBox(height: 6),
                   Flexible(
-                    child: Text(
-                      taskProjectName.toString(),
-                      style: TextStyle(
-                        color: Color(0xff025273),
-                        fontSize: 13,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Text(
+                        taskProjectName.toString(),
+                        style: TextStyle(
+                          color: Color(0xff025273),
+                          fontSize: 13,
+                        ),
                       ),
                     ),
                   ),
