@@ -40,171 +40,186 @@ class _CrudViewState extends State<CrudView> {
   @override
   Widget build(BuildContext context) {
     final crudProvider = Provider.of<CrudViewProvider>(context);
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        backgroundColor: APPColors.Main.blue,
-      ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: crudProvider.crudFormKey,
-          child: Column(
-            children: [
-              pageCard(
-                  context,
-                  "Örnek Kayıt ${crudProvider.isUpdateActivated ? 'Güncelleme' : 'Ekleme'} Ekranı",
-                  logoHeader()),
-              Padding(
-                padding: const EdgeInsets.all(height_14),
-                child: Column(
-                  children: [
-                    CustomTextFormField(
-                        // ignore: sort_child_properties_last
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: mainWhiteColor,
-                                borderRadius:
-                                    BorderRadius.circular(radius_size_10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: container_box_shadow,
-                                      blurRadius: radius_size_10,
-                                      offset:
-                                          Offset(radius_size_0, radius_size_10))
-                                ]),
-                            child: CustomTextFormFieldContent(
-                                icon: Icons.text_format,
-                                iconColor: APPColors.Secondary.blue,
-                                validator: formBos,
-                                controller: crudProvider.descriptionController,
-                                name: "Bildirim İsmi"),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: mainWhiteColor,
-                                borderRadius:
-                                    BorderRadius.circular(radius_size_10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: container_box_shadow,
-                                      blurRadius: radius_size_10,
-                                      offset:
-                                          Offset(radius_size_0, radius_size_10))
-                                ]),
-                            child: CustomTextFormFieldContent(
-                                icon: Icons.date_range,
-                                isSuffix: false,
-                                isDate: true,
-                                validator: formBos,
-                                isTime: true,
-                                controller:
-                                    crudProvider.descriptionDateController,
-                                name: "Bildirim Tarihi"),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: mainWhiteColor,
-                                borderRadius:
-                                    BorderRadius.circular(radius_size_10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: container_box_shadow,
-                                      blurRadius: radius_size_10,
-                                      offset:
-                                          Offset(radius_size_0, radius_size_10))
-                                ]),
-                            child: Column(
-                              children: [
-                                CustomDropdown(
-                                  onChanged: (val) {
-                                    crudProvider
-                                        .setdescriptionReadedController = val!;
-                                    if (crudProvider.descriptionReadedController
-                                        .text.isNotEmpty) {
-                                      crudProvider.setIsKurumTuruEmpty = false;
-                                    } else {
-                                      crudProvider.setIsKurumTuruEmpty = true;
-                                    }
-                                  },
-                                  disableClear: true,
-                                  icons: Icons.notification_add,
-                                  listHeight: 2,
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        appBar: AppBar(
+          leading: Container(),
+          centerTitle: true,
+          title: Text("Kayıt Ekle Güncelle"),
+          backgroundColor: APPColors.Main.blue,
+        ),
+        body: SingleChildScrollView(
+          child: Form(
+            key: crudProvider.crudFormKey,
+            child: Column(
+              children: [
+                pageCard(
+                    context,
+                    "Örnek Kayıt ${crudProvider.isUpdateActivated ? 'Güncelleme' : 'Ekleme'} Ekranı",
+                    logoHeader()),
+                Padding(
+                  padding: const EdgeInsets.all(height_14),
+                  child: Column(
+                    children: [
+                      CustomTextFormField(
+                          // ignore: sort_child_properties_last
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: mainWhiteColor,
+                                  borderRadius:
+                                      BorderRadius.circular(radius_size_10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: container_box_shadow,
+                                        blurRadius: radius_size_10,
+                                        offset: Offset(
+                                            radius_size_0, radius_size_10))
+                                  ]),
+                              child: CustomTextFormFieldContent(
+                                  icon: Icons.text_format,
+                                  iconColor: APPColors.Secondary.blue,
+                                  validator: formBos,
                                   controller:
-                                      crudProvider.descriptionReadedController,
-                                  header: "Bildirim Durumu",
-                                  items: ["Evet", "Hayır"],
-                                ),
-                                crudProvider.iskurumTuruEmpty
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                                left: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    19,
-                                                bottom: 10),
-                                            child: Text(
-                                              "Bu alan boş olamaz",
-                                              style: TextStyle(
-                                                  color: APPColors.Main.red,
-                                                  fontSize: height_12,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    : Container(),
-                              ],
+                                      crudProvider.descriptionController,
+                                  name: "Bildirim İsmi"),
                             ),
-                          ),
-                        ],
-                        sectionName: "Notification Bilgileri"),
-                  ],
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: mainWhiteColor,
+                                  borderRadius:
+                                      BorderRadius.circular(radius_size_10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: container_box_shadow,
+                                        blurRadius: radius_size_10,
+                                        offset: Offset(
+                                            radius_size_0, radius_size_10))
+                                  ]),
+                              child: CustomTextFormFieldContent(
+                                  icon: Icons.date_range,
+                                  isSuffix: false,
+                                  isDate: true,
+                                  validator: formBos,
+                                  isTime: true,
+                                  controller:
+                                      crudProvider.descriptionDateController,
+                                  name: "Bildirim Tarihi"),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: mainWhiteColor,
+                                  borderRadius:
+                                      BorderRadius.circular(radius_size_10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: container_box_shadow,
+                                        blurRadius: radius_size_10,
+                                        offset: Offset(
+                                            radius_size_0, radius_size_10))
+                                  ]),
+                              child: Column(
+                                children: [
+                                  CustomDropdown(
+                                    onChanged: (val) {
+                                      crudProvider
+                                              .setdescriptionReadedController =
+                                          val!;
+                                      if (crudProvider
+                                          .descriptionReadedController
+                                          .text
+                                          .isNotEmpty) {
+                                        crudProvider.setIsKurumTuruEmpty =
+                                            false;
+                                      } else {
+                                        crudProvider.setIsKurumTuruEmpty = true;
+                                      }
+                                    },
+                                    disableClear: true,
+                                    icons: Icons.notification_add,
+                                    listHeight: 2,
+                                    controller: crudProvider
+                                        .descriptionReadedController,
+                                    header: "Bildirim Durumu",
+                                    items: ["Evet", "Hayır"],
+                                  ),
+                                  crudProvider.iskurumTuruEmpty
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      19,
+                                                  bottom: 10),
+                                              child: Text(
+                                                "Bu alan boş olamaz",
+                                                style: TextStyle(
+                                                    color: APPColors.Main.red,
+                                                    fontSize: height_12,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : Container(),
+                                ],
+                              ),
+                            ),
+                          ],
+                          sectionName: "Notification Bilgileri"),
+                    ],
+                  ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CustomIconButton(
-                    colors: APPColors.Secondary.red,
-                    height: height_18,
-                    width: height_3,
-                    name: "Temizle",
-                    icons: Icon(
-                      Icons.delete,
-                      color: APPColors.Main.white,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    CustomIconButton(
+                      colors: APPColors.Secondary.red,
+                      height: height_18,
+                      width: height_3,
+                      name: "Temizle",
+                      icons: Icon(
+                        Icons.delete,
+                        color: APPColors.Main.white,
+                      ),
+                      onTap: () => crudProvider.clearForm(),
                     ),
-                    onTap: () => crudProvider.clearForm(),
-                  ),
-                  CustomIconButton(
-                    colors: crudProvider.isUpdateActivated
-                        ? APPColors.Secondary.orange
-                        : APPColors.Main.blue,
-                    height: height_18,
-                    width: height_3,
-                    name:
-                        crudProvider.isUpdateActivated ? "Güncelle" : "Kaydet",
-                    icons: Icon(
-                      Icons.add,
-                      color: crudProvider.isUpdateActivated
-                          ? APPColors.Secondary.white
-                          : APPColors.Main.white,
+                    CustomIconButton(
+                      colors: crudProvider.isUpdateActivated
+                          ? APPColors.Secondary.orange
+                          : APPColors.Main.blue,
+                      height: height_18,
+                      width: height_3,
+                      name: crudProvider.isUpdateActivated
+                          ? "Güncelle"
+                          : "Kaydet",
+                      icons: Icon(
+                        Icons.add,
+                        color: crudProvider.isUpdateActivated
+                            ? APPColors.Secondary.white
+                            : APPColors.Main.white,
+                      ),
+                      onTap: () => crudProvider.addOrUpdateForm(context),
                     ),
-                    onTap: () => crudProvider.addOrUpdateForm(context),
-                  ),
-                ],
-              )
-            ],
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

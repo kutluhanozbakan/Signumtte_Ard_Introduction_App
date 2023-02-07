@@ -50,17 +50,7 @@ class _ListScreenState extends State<ListScreen> {
 
     return WillPopScope(
       onWillPop: () async {
-        CustomAlertDialog(context, () async {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.clear();
-          // ignore: use_build_context_synchronously
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const Login()),
-              (route) => true);
-        }, "Emin misiniz", "Çıkış Yapılacaktır", ArtSweetAlertType.info,
-            "Tamam", "Vazgeç");
-        return true;
+        return false;
       },
       child: Scaffold(
           appBar: AppBar(
@@ -69,17 +59,7 @@ class _ListScreenState extends State<ListScreen> {
             centerTitle: true,
             leading: IconButton(
                 onPressed: () {
-                  CustomAlertDialog(context, () async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    prefs.clear();
-                    // ignore: use_build_context_synchronously
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Login()),
-                        (route) => true);
-                  }, "Emin misiniz", "Çıkış Yapılacaktır",
-                      ArtSweetAlertType.info, "Tamam", "Vazgeç");
+                  listViewProvider.pageController!.jumpTo(0);
                 },
                 icon: const Icon(Icons.home)),
             actions: [sayfaYenile()],
@@ -141,10 +121,9 @@ class _ListScreenState extends State<ListScreen> {
                                             listElements.description == ""
                                                 ? "Açıklama ${i + 1}"
                                                 : listElements.description,
-                                        taskPerson:
-                                            listElements.isDelete == false
-                                                ? "Silindi"
-                                                : "Silinmedi",
+                                        taskPerson: listElements.isRead == false
+                                            ? "Okundu"
+                                            : "Okunmadı",
                                         isIcon: true,
                                         taskProjectName:
                                             "Lorem ipsum dolor sit amet",
