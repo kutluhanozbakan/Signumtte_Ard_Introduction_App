@@ -51,7 +51,7 @@ class _OtherWidgetsViewState extends State<OtherWidgetsView> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height / 50),
+                    top: MediaQuery.of(context).size.height / 15),
                 child: CustomCardWithImage(
                   cardName: "Widget Örnekleri",
                   isIcon: false,
