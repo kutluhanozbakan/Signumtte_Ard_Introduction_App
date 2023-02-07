@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/providers/login_provider.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/buttonWidgets/customButton.dart';
-import 'package:flutter_introduction_app_ard_grup/widgets/customTextFormField.dart';
+import 'package:flutter_introduction_app_ard_grup/widgets/textfieldsWidgets/customTextFormField.dart';
 import '../../utils/global_utils.dart';
 import '../../utils/utils.dart';
 import '../../widgets/commons.dart';

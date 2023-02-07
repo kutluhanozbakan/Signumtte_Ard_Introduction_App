@@ -7,7 +7,7 @@ import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/utils.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/buttonWidgets/customIconButton.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/commons.dart';
-import 'package:flutter_introduction_app_ard_grup/widgets/customTextFormField.dart';
+import 'package:flutter_introduction_app_ard_grup/widgets/textfieldsWidgets/customTextFormField.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/list_view.model.dart';

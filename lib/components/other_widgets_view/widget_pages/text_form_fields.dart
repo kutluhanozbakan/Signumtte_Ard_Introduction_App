@@ -5,7 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/commons.dart';
-import 'package:flutter_introduction_app_ard_grup/widgets/customTextFormField.dart';
+import 'package:flutter_introduction_app_ard_grup/widgets/textfieldsWidgets/customTextFormField.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/textfieldsWidgets/customTextArea.dart';
 
 import '../../../widgets/cardWidgets/customCardWithImage.dart';
