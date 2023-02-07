@@ -84,6 +84,7 @@ class ListViewProvider extends ChangeNotifier {
   }
 
   void loadData(index) async {
+    _isDataLoading = true;
     Map<String, dynamic> queryParameters = {
       "Page": index,
       "PropertyName": 'id',
