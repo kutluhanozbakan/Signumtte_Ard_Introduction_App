@@ -59,7 +59,7 @@ class _CrudViewState extends State<CrudView> {
               children: [
                 pageCard(
                     context,
-                    "Örnek Kayıt ${crudProvider.isUpdateActivated ? 'Güncelleme' : 'Ekleme'} Ekranı",
+                    "Örnek Kayıt ${crudProvider.isUpdateActivated ? 'Güncelleme' : 'Ekleme'}",
                     logoHeader()),
                 Padding(
                   padding: const EdgeInsets.all(height_14),
