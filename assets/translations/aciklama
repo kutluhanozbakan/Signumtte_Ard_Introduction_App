@@ -1,0 +1,5 @@
+en.json ve tr.json dosyasına kelimeler eklendikten sonra terminalde aşağıda verilen kodu çalıştırmak gerekiyor.
+Bu komut satırı otomatik olarak locale_keys.g.dart dosyasını güncelleyerek uygulama içerisinde kullanımı saglamaktadır.
+
+
+flutter pub run easy_localization:generate -S assets/translations -f keys -O lib/l10n -o locale_keys.g.dart

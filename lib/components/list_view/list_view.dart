@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages, prefer_const_constructors
 
 import 'package:art_sweetalert/art_sweetalert.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/components/login/login.dart';
 import 'package:flutter_introduction_app_ard_grup/models/list_view.model.dart';
@@ -16,6 +17,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../api/api_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../l10n/locale_keys.g.dart';
 import '../../utils/global_utils.dart';
 import '../../widgets/customInfoNotFound.dart';
 import '../../widgets/ListWidgets/customTaskListWidget.dart';
@@ -55,7 +57,7 @@ class _ListScreenState extends State<ListScreen> {
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: APPColors.Main.blue,
-            title: Text("Listeleme"),
+            title: Text(LocaleKeys.listeleme.tr()),
             centerTitle: true,
             leading: IconButton(
                 onPressed: () {
@@ -68,7 +70,8 @@ class _ListScreenState extends State<ListScreen> {
             children: [
               Column(
                 children: [
-                  pageCard(context, "Örnek Listeleme Ekranı", logoHeader()),
+                  pageCard(
+                      context, LocaleKeys.listOrnekleri.tr(), logoHeader()),
                   !listViewProvider.isDataExist
                       ? Expanded(
                           child: NotificationListener<ScrollNotification>(
@@ -128,29 +131,6 @@ class _ListScreenState extends State<ListScreen> {
                                             "Lorem ipsum dolor sit amet",
                                       ),
                                     ),
-                                    // Padding(
-                                    //   padding: EdgeInsets.all(
-                                    //       MediaQuery.of(context).size.height /
-                                    //           80),
-                                    //   child: AppListTileWithAvatar(
-                                    //     icon: Icons.edit,
-                                    //     onTap: () {
-                                    //       crudProvider.fillForm(
-                                    //           context,
-                                    //           listElements,
-                                    //           listViewProvider.pageController!);
-                                    //     },
-                                    //     iconColor: generateColor(l),
-                                    //     iconText: i.toString(),
-                                    //     extraTitle: formattedDate,
-                                    //     extraTitleHeight: 25,
-                                    //     title: listElements.description == ""
-                                    //         ? "Açıklama ${i + 1}"
-                                    //         : listElements.description,
-                                    //     subTitle:
-                                    //         listElements.isDelete.toString(),
-                                    //   ),
-                                    // ),
                                   ],
                                 );
                               }),

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/providers/crud_view_provider.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/global_utils.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_introduction_app_ard_grup/widgets/commons.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/textfieldsWidgets/customTextFormField.dart';
 import 'package:provider/provider.dart';
 
+import '../../l10n/locale_keys.g.dart';
 import '../../models/list_view.model.dart';
 import '../../widgets/customDropdown.dart';
 
@@ -49,7 +51,9 @@ class _CrudViewState extends State<CrudView> {
         appBar: AppBar(
           leading: Container(),
           centerTitle: true,
-          title: Text("Kayıt Ekle Güncelle"),
+          title: Text(LocaleKeys.ornekKayitEkleme.tr() +
+              "/" +
+              LocaleKeys.ornekKayitGuncelleme.tr()),
           backgroundColor: APPColors.Main.blue,
         ),
         body: SingleChildScrollView(
@@ -59,7 +63,7 @@ class _CrudViewState extends State<CrudView> {
               children: [
                 pageCard(
                     context,
-                    "Örnek Kayıt ${crudProvider.isUpdateActivated ? 'Güncelleme' : 'Ekleme'}",
+                    "${LocaleKeys.ornekKayitPrefix.tr()} ${crudProvider.isUpdateActivated ? LocaleKeys.ornekKayitGuncelleme.tr() : LocaleKeys.ornekKayitEkleme.tr()}",
                     logoHeader()),
                 Padding(
                   padding: const EdgeInsets.all(height_14),
@@ -86,7 +90,7 @@ class _CrudViewState extends State<CrudView> {
                                   validator: formBos,
                                   controller:
                                       crudProvider.descriptionController,
-                                  name: "Bildirim İsmi"),
+                                  name: LocaleKeys.bildirimIsmi.tr()),
                             ),
                             SizedBox(
                               height: 20,
@@ -111,7 +115,7 @@ class _CrudViewState extends State<CrudView> {
                                   isTime: true,
                                   controller:
                                       crudProvider.descriptionDateController,
-                                  name: "Bildirim Tarihi"),
+                                  name: LocaleKeys.bildirimTarihi.tr()),
                             ),
                             SizedBox(
                               height: 20,
@@ -150,8 +154,11 @@ class _CrudViewState extends State<CrudView> {
                                     listHeight: 2,
                                     controller: crudProvider
                                         .descriptionReadedController,
-                                    header: "Bildirim Durumu",
-                                    items: ["Evet", "Hayır"],
+                                    header: LocaleKeys.bildirimDurumu.tr(),
+                                    items: [
+                                      LocaleKeys.evet.tr(),
+                                      LocaleKeys.hayir.tr()
+                                    ],
                                   ),
                                   crudProvider.iskurumTuruEmpty
                                       ? Row(
@@ -166,7 +173,7 @@ class _CrudViewState extends State<CrudView> {
                                                       19,
                                                   bottom: 10),
                                               child: Text(
-                                                "Bu alan boş olamaz",
+                                                LocaleKeys.buAlanBosOlamaz.tr(),
                                                 style: TextStyle(
                                                     color: APPColors.Main.red,
                                                     fontSize: height_12,
@@ -181,7 +188,7 @@ class _CrudViewState extends State<CrudView> {
                               ),
                             ),
                           ],
-                          sectionName: "Notification Bilgileri"),
+                          sectionName: ""),
                     ],
                   ),
                 ),
@@ -192,7 +199,7 @@ class _CrudViewState extends State<CrudView> {
                       colors: APPColors.Secondary.red,
                       height: height_18,
                       width: height_3,
-                      name: "Temizle",
+                      name: LocaleKeys.temizle.tr(),
                       icons: Icon(
                         Icons.delete,
                         color: APPColors.Main.white,
@@ -206,8 +213,8 @@ class _CrudViewState extends State<CrudView> {
                       height: height_18,
                       width: height_3,
                       name: crudProvider.isUpdateActivated
-                          ? "Güncelle"
-                          : "Kaydet",
+                          ? LocaleKeys.ornekKayitGuncelleme.tr()
+                          : LocaleKeys.kaydet.tr(),
                       icons: Icon(
                         Icons.add,
                         color: crudProvider.isUpdateActivated

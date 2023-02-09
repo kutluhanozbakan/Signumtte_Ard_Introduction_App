@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:art_sweetalert/art_sweetalert.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/utils.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/customCalendar.dart';
 
+import '../../l10n/locale_keys.g.dart';
 import '../../widgets/cardWidgets/customCardWithImage.dart';
 import '../../widgets/cardWidgets/customCardWithImageSmall.dart';
 import '../../widgets/dialogWidgets/customAlertDialog.dart';
@@ -35,14 +37,20 @@ class _OtherWidgetsViewState extends State<OtherWidgetsView> {
       onWillPop: () async {
         CustomAlertDialog(context, () async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
+          var lang = prefs.getString("lang");
           prefs.clear();
+          prefs.setString("lang", lang!);
           // ignore: use_build_context_synchronously
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => const Login()),
               (route) => true);
-        }, "Emin misiniz", "Çıkış Yapılacaktır", ArtSweetAlertType.info,
-            "Tamam", "Vazgeç");
+        },
+            LocaleKeys.eminMisiniz.tr(),
+            LocaleKeys.cikisYapilacaktir.tr(),
+            ArtSweetAlertType.info,
+            LocaleKeys.tamam.tr(),
+            LocaleKeys.vazgec.tr());
         return true;
       },
       child: Scaffold(
@@ -53,7 +61,7 @@ class _OtherWidgetsViewState extends State<OtherWidgetsView> {
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height / 15),
                 child: CustomCardWithImage(
-                  cardName: "Widget Örnekleri",
+                  cardName: LocaleKeys.widgetOrnekleri.tr(),
                   isIcon: false,
                 ),
               ),
@@ -74,38 +82,38 @@ class _OtherWidgetsViewState extends State<OtherWidgetsView> {
                         // ignore: prefer_const_literals_to_create_immutables
                         children: <Widget>[
                           CustomCardWithImageSmall(
-                            title: "TextField Örnekleri",
+                            title: LocaleKeys.textFieldOrnekleri.tr(),
                             iconData: Icons.text_fields,
                             cardPadding: 0,
                             cardInlinePadding: 10,
                             navigation: ExampleTextFormFields(),
                           ),
                           CustomCardWithImageSmall(
-                            title: "Buton Örnekleri",
+                            title: LocaleKeys.butonOrnekleri.tr(),
                             iconData: Icons.smart_button_sharp,
                             cardPadding: 10,
                             navigation: ExampleButtons(),
                           ),
                           CustomCardWithImageSmall(
-                            title: "Takvim Örneği",
+                            title: LocaleKeys.takvimOrnegi.tr(),
                             iconData: Icons.calendar_month,
                             cardPadding: 10,
                             navigation: ExampleCalendar(),
                           ),
                           CustomCardWithImageSmall(
-                            title: "Dialog Örnekleri",
+                            title: LocaleKeys.dialogOrnekleri.tr(),
                             cardPadding: 10,
                             iconData: Icons.chat,
                             navigation: ExampleDialogs(),
                           ),
                           CustomCardWithImageSmall(
-                            title: "Card Örnekleri",
+                            title: LocaleKeys.cardOrnekleri.tr(),
                             cardPadding: 10,
                             iconData: Icons.article_sharp,
                             navigation: ExampleCards(),
                           ),
                           CustomCardWithImageSmall(
-                            title: "List Örnekleri",
+                            title: LocaleKeys.listOrnekleri.tr(),
                             cardPadding: 10,
                             iconData: Icons.list,
                             navigation: ExampleListTiles(),
@@ -117,41 +125,5 @@ class _OtherWidgetsViewState extends State<OtherWidgetsView> {
             ],
           )),
     );
-    //     body: ListView(
-    //   scrollDirection: Axis.vertical,
-    //   children: [
-    //     // ignore: prefer_const_constructors
-    //     CustomCardWithImage(
-    //       cardName: "Textformfield Örnekleri",
-    //       onPressed: () {
-    //         Navigator.push(
-    //             context,
-    //             MaterialPageRoute(
-    //                 builder: (context) => ExampleTextFormFields()));
-    //       },
-    //     ),
-    //     CustomCardWithImage(
-    //       cardName: "Buton Örnekleri",
-    //       onPressed: () {
-    //         Navigator.push(context,
-    //             MaterialPageRoute(builder: (context) => ExampleButtons()));
-    //       },
-    //     ),
-    //     CustomCardWithImage(
-    //       cardName: "Takvim Örneği",
-    //       onPressed: () {
-    //         Navigator.push(context,
-    //             MaterialPageRoute(builder: (context) => ExampleCalendar()));
-    //       },
-    //     ),
-    //     CustomCardWithImage(
-    //       cardName: "Dialog Örnekleri",
-    //       onPressed: () {
-    //         Navigator.push(context,
-    //             MaterialPageRoute(builder: (context) => ExampleDialogs()));
-    //       },
-    //     ),
-    //   ],
-    // ));
   }
 }

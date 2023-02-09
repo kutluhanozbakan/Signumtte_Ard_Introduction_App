@@ -1,10 +1,12 @@
 // ignore_for_file: use_build_context_synchronously, non_constant_identifier_names, prefer_const_constructors, sort_child_properties_last
 
 import 'package:art_sweetalert/art_sweetalert.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/components/login/login.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/utils.dart';
+import '../l10n/locale_keys.g.dart';
 import '../widgets/dialogWidgets/customAlertDialog.dart';
 import '../widgets/customDialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,8 +22,8 @@ Future logout(BuildContext context) async {
             cancelFunction: () {
               Navigator.pop(context);
             },
-            confirmButtonText: "Evet",
-            description: "Uygulamadan çıkış yapılacaktır onaylıyor musunuz?",
+            confirmButtonText: LocaleKeys.evet.tr(),
+            description: LocaleKeys.cikisYapilacaktir.tr(),
             okFunction: () async {
               prefs.clear();
               Navigator.pushAndRemoveUntil(
@@ -30,14 +32,15 @@ Future logout(BuildContext context) async {
                   (route) => false);
             },
             onlyConfirmation: false,
-            cancelButtonText: "Hayır",
+            cancelButtonText: LocaleKeys.vazgec.tr(),
           ));
 }
 
 void baglantiHatasi(BuildContext context, String? message) async {
   CustomAlertDialogOnlyConfirm(context, () {
     Navigator.pop(context);
-  }, "Bir hata meydana geldi.", message!, ArtSweetAlertType.danger, "Tamam");
+  }, LocaleKeys.birHataMeydanaGeldi.tr(), message!, ArtSweetAlertType.danger,
+      LocaleKeys.tamam.tr());
 }
 
 Widget loadingBar(
@@ -103,10 +106,10 @@ Widget pageCard(BuildContext context, String cardName, Widget cardIcon) {
 
 String? formBos(String? fieldContent) {
   if (fieldContent == "" || fieldContent == null) {
-    return 'Bu alan boş olamaz';
+    return LocaleKeys.buAlanBosOlamaz.tr();
   } else {
     if (fieldContent.length < 3) {
-      return 'Bu alan 3 karakterden az olamaz.';
+      return LocaleKeys.buAlanUcKarakterdenAzOlamaz.tr();
     }
   }
 }
@@ -119,13 +122,13 @@ String? formEmail(String? fieldContent) {
   if (regExp.hasMatch(fieldContent!)) {
     return null;
   } else {
-    return "Lütfen Email formatını kontrol ediniz.";
+    return LocaleKeys.emailFormatiKontrolEdiniz.tr();
   }
 }
 
 String? formText(String? fieldContent) {
   if (fieldContent!.length < 3) {
-    return "Bu alan 3 karakterden az olamaz";
+    return LocaleKeys.buAlanUcKarakterdenAzOlamaz.tr();
   } else {
     return null;
   }
@@ -133,7 +136,7 @@ String? formText(String? fieldContent) {
 
 String? formDropdown(String? fieldContent) {
   if (fieldContent == null) {
-    return "Lütfen bir seçim yapınız";
+    return LocaleKeys.lutfenSecimYapiniz.tr();
   } else {
     null;
   }
@@ -143,24 +146,24 @@ String? formPassword(String? fieldContent) {
   if (fieldContent!.isNotEmpty) {
     null;
   } else {
-    return "Lütfen şifrenizi giriniz";
+    return LocaleKeys.lutfenSifreniziGiriniz.tr();
   }
 }
 
 String? formTC(String? fieldContent) {
   if (fieldContent!.isNotEmpty) {
     if (fieldContent.length < 11) {
-      return "Lütfen 11 haneli TC nizi giriniz.";
+      return LocaleKeys.lutfenTcGiriniz.tr();
     }
   } else {
-    return "Bu alan boş olamaz";
+    return LocaleKeys.buAlanBosOlamaz.tr();
   }
 }
 
 String? formTCLength(String? fieldContent) {
   if (fieldContent!.isNotEmpty) {
     if (fieldContent.length < 11) {
-      return "Lütfen 11 haneli TC nizi giriniz.";
+      return LocaleKeys.lutfenTcGiriniz.tr();
     }
   }
 }
@@ -169,10 +172,10 @@ String? formPhone(String? fieldContent) {
   final p = RegExp(r'^^[1-9][0-9]*$');
   if (fieldContent!.isNotEmpty) {
     if (!p.hasMatch(fieldContent) || fieldContent.length < 10) {
-      return "Lütfen telefon numarasını başında 0 olmadan giriniz";
+      return LocaleKeys.telefonNumaraniziGiriniz.tr();
     }
   } else {
-    return "Bu alan boş olamaz";
+    return LocaleKeys.buAlanBosOlamaz.tr();
   }
 }
 
@@ -180,15 +183,15 @@ String? formPhoneWithHolder(String? fieldContent) {
   if (fieldContent!.isNotEmpty) {
     print(fieldContent[2]);
     if (fieldContent[2] == "0") {
-      return "Lütfen telefon numarasını başında 0 olmadan giriniz";
+      return LocaleKeys.telefonNumaraniziGiriniz.tr();
     }
   } else {
-    return "Bu alan boş olamaz";
+    return LocaleKeys.buAlanBosOlamaz.tr();
   }
 }
 
 String? formLength(String? fieldContent) {
   if (fieldContent!.length < 3) {
-    return "Bu alan 3 karakterden az olamaz";
+    return LocaleKeys.buAlanUcKarakterdenAzOlamaz.tr();
   }
 }

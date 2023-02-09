@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_introduction_app_ard_grup/components/crud_view/crud_view.dart';
+import 'package:flutter_introduction_app_ard_grup/l10n/locale_keys.g.dart';
 import 'package:flutter_introduction_app_ard_grup/providers/main_page_view_provider.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 
@@ -75,12 +77,12 @@ class _MainPageState extends State<MainPage> {
         items: <CustomBottomNavigationBarItem>[
           /*-------------- Build tabs here -----------------*/
           CustomBottomNavigationBarItem(
-              title: 'Widgetlar',
+              title: LocaleKeys.widgetlar.tr(),
               icon: Icon(Icons.chat_bubble),
               activeColor: APPColors.Main.white,
               inactiveColor: APPColors.Main.grey),
           CustomBottomNavigationBarItem(
-              title: 'Listeleme',
+              title: LocaleKeys.listeleme.tr(),
               icon: Icon(Icons.home),
               activeColor: APPColors.Main.white,
               inactiveColor: APPColors.Main.grey),

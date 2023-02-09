@@ -84,8 +84,8 @@ class CustomCardWithImageSmall extends StatelessWidget {
                 children: <Widget>[
                   iconWidget,
                   Container(
-                    margin: const EdgeInsets.only(top: 16),
                     child: Text(title!,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.w600, color: textColor)),
                   )

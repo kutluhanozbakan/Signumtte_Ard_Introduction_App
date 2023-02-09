@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_final_fields, use_build_context_synchronously
 
 import 'package:art_sweetalert/art_sweetalert.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/models/http_response.model.dart';
 import 'package:flutter_introduction_app_ard_grup/models/user.model.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_introduction_app_ard_grup/widgets/dialogWidgets/customAl
 import 'package:intl/intl.dart';
 
 import '../api/api_repository.dart';
+import '../l10n/locale_keys.g.dart';
 import '../models/list_view.model.dart';
 import '../utils/api_urls.dart';
 import '../widgets/dialogWidgets/customDialogOnlyConfirm.dart';
@@ -121,8 +123,9 @@ class CrudViewProvider extends ChangeNotifier {
     DateTime dateTime = DateTime.parse(listElements.notificationDate!);
     String formattedDate = DateFormat("dd/MM/yyyy").format(dateTime);
     _descriptionDateController.text = formattedDate;
-    _descriptionReadedController.text =
-        listElements.isRead == true ? "Evet" : "Hayır";
+    _descriptionReadedController.text = listElements.isRead == true
+        ? LocaleKeys.evet.tr()
+        : LocaleKeys.hayir.tr();
   }
 
   void addForm(BuildContext context) async {
@@ -138,7 +141,9 @@ class CrudViewProvider extends ChangeNotifier {
         "notificationType": 1,
         "referenceId": "23123",
         "notificationDate": utc,
-        "isRead": _descriptionReadedController.text == "Evet" ? true : false,
+        "isRead": _descriptionReadedController.text == LocaleKeys.evet.tr()
+            ? true
+            : false,
         "isDelete": false
       };
 
@@ -151,19 +156,22 @@ class CrudViewProvider extends ChangeNotifier {
           () {
             Navigator.pop(context);
           },
-          "Başarılı",
-          "Kayıt başarı ile eklendi.",
+          LocaleKeys.basarili.tr(),
+          LocaleKeys.kayitBasariIleEklendi.tr(),
           ArtSweetAlertType.success,
-          "Tamam",
+          LocaleKeys.tamam.tr(),
         );
       } else {
         CustomAlertDialogOnlyConfirm(context, () {
           Navigator.pop(context);
         },
-            "Uyarı",
-            "Kayıt sırasında bir hata oluştu. Hata mesajı: ${apiResponse.message}.",
+            LocaleKeys.uyari.tr(),
+            LocaleKeys.kayitSirasindaHataOlustu.tr() +
+                " " +
+                LocaleKeys.hataMesaji.tr() +
+                "${apiResponse.message}.",
             ArtSweetAlertType.warning,
-            "Tamam");
+            LocaleKeys.tamam.tr());
       }
     } else {
       if (_descriptionReadedController.text.isEmpty) {
@@ -193,7 +201,9 @@ class CrudViewProvider extends ChangeNotifier {
         "notificationType": 1,
         "referenceId": "23123",
         "notificationDate": utc,
-        "isRead": _descriptionReadedController.text == "Evet" ? true : false,
+        "isRead": _descriptionReadedController.text == LocaleKeys.evet.tr()
+            ? true
+            : false,
         "isDelete": false
       };
       print(queryParameters);
@@ -207,19 +217,21 @@ class CrudViewProvider extends ChangeNotifier {
           () {
             Navigator.pop(context);
           },
-          "Başarılı",
-          "Kayıt başarı ile eklendi.",
+          LocaleKeys.basarili.tr(),
+          LocaleKeys.kayitBasariIleEklendi.tr(),
           ArtSweetAlertType.success,
-          "Tamam",
+          LocaleKeys.tamam.tr(),
         );
       } else {
         CustomAlertDialogOnlyConfirm(context, () {
           Navigator.pop(context);
         },
-            "Uyarı",
-            "Kayıt sırasında bir hata oluştu. Hata mesajı: ${apiResponse.message}.",
+            LocaleKeys.uyari.tr(),
+            LocaleKeys.kayitSirasindaHataOlustu.tr() +
+                LocaleKeys.hataMesaji.tr() +
+                apiResponse.message.toString(),
             ArtSweetAlertType.warning,
-            "Tamam");
+            LocaleKeys.tamam.tr());
       }
     } else {
       if (_descriptionReadedController.text.isEmpty) {

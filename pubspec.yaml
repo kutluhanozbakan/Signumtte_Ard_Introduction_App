@@ -38,7 +38,8 @@ dependencies:
   jwt_decode: ^0.3.1
   art_sweetalert: ^0.0.5
   flutter_datetime_picker: ^1.5.1
-  intl: ^0.18.0
+  # intl: ^0.18.0
+  easy_localization: ^3.0.1
   progress_indicators: ^1.0.0
   dropdown_search: ^2.0.1
 
@@ -71,8 +72,12 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/translations/tr.json
+    - assets/translations/en.json
     - lib\assets\images\ardgrup_logo.png
     - lib/assets/images/example_image.png
+    - lib\assets\images\icons\english-icon.png
+    - lib\assets\images\icons\turkey-icon.png
     # - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

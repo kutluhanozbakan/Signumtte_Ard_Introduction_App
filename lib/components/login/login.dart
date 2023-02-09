@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, depend_on_referenced_packages, prefer_final_fields
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_introduction_app_ard_grup/l10n/locale_keys.g.dart';
 import 'package:flutter_introduction_app_ard_grup/providers/login_provider.dart';
 import 'package:flutter_introduction_app_ard_grup/utils/themes.dart';
 import 'package:flutter_introduction_app_ard_grup/widgets/buttonWidgets/customButton.dart';
@@ -20,8 +22,28 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   @override
+  void initState() {
+    final loginProvider =
+        Provider.of<RegistrationProvider>(context, listen: false);
+    loginProvider.initData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30)),
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter, colors: login_ui_color)),
+            child: changeLanguage(context)),
+        elevation: 0,
+      ),
       resizeToAvoidBottomInset: true,
       body: ChangeNotifierProvider(
         create: ((context) => RegistrationProvider()),
@@ -94,7 +116,7 @@ class _LoginState extends State<Login> {
                         isIcon: true),
                     CustomTextFormFieldContent(
                         controller: loginProvider.password,
-                        name: "Şifre",
+                        name: LocaleKeys.sifre.tr(),
                         validator: formBos,
                         obscureText: loginProvider.passwordVisible,
                         icon: Icons.password,
@@ -116,7 +138,7 @@ class _LoginState extends State<Login> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text("Beni hatırla"),
+                Text(LocaleKeys.beniHatirla.tr()),
                 Checkbox(
                     value: loginProvider.rememberMe,
                     onChanged: (val) {
@@ -129,7 +151,7 @@ class _LoginState extends State<Login> {
                 child: CustomButton(
                   isIcon: false,
                   colors: APPColors.Main.blue,
-                  name: "Giriş",
+                  name: LocaleKeys.giris.tr(),
                   onTap: () {
                     if (_loginFormKey.currentState!.validate()) {
                       loginProvider.userLogin(
@@ -140,7 +162,7 @@ class _LoginState extends State<Login> {
                     }
                   },
                   textColor: APPColors.Main.white,
-                ))
+                )),
           ],
         ),
       );
@@ -162,13 +184,41 @@ class _LoginState extends State<Login> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                "Hoşgeldin",
+                LocaleKeys.hosgeldin.tr(),
                 style: TextStyle(color: mainWhiteColor, fontSize: font_size_24),
               ),
             ],
           ),
         ),
       ],
+    );
+  }
+
+  Widget changeLanguage(BuildContext _context) {
+    return Consumer<RegistrationProvider>(
+      builder: (_context, loginProvider, Widget? child) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              APPImages.turkishIcon.images,
+              height: 25,
+              width: 25,
+            ),
+            Switch(
+                inactiveTrackColor: Color.fromARGB(255, 163, 163, 163),
+                value: loginProvider.changeLanguage,
+                onChanged: (val) {
+                  loginProvider.changeLanguageOfApplication(val, _context);
+                }),
+            Image.asset(
+              APPImages.englishIcon.images,
+              height: 25,
+              width: 25,
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, depend_on_referenced_packages
 
 import 'package:art_sweetalert/art_sweetalert.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_introduction_app_ard_grup/components/main_page_view/main_page_view.dart';
@@ -24,6 +25,14 @@ void tokenGet(BuildContext context) async {
   var token = prefs.getString("Token");
   var userName = prefs.getString("cryptedUserName");
   var password = prefs.getString("cryptedPassword");
+
+  //Kullanıcının kayıt ettiği dil tercihi çekilerek dil seçeneği setlenir. Eğer local storage içerisinde herhangi bir bilgi bulunamaz ise "tr" olarak setlenir.
+  var currentlanguage = prefs.getString("lang");
+  if (currentlanguage == null) {
+    context.setLocale(Locale("tr"));
+  } else {
+    context.setLocale(Locale(currentlanguage));
+  }
 
   //eğer token bilgisi mevcut ise decode edilerek içerisinde bulunan bilgiler alınıyor.
   if (token != null) {
@@ -49,11 +58,13 @@ void tokenGet(BuildContext context) async {
         rememberMe: false);
 
     if (apiResult.success!) {
-      Navigator.push(
+      Navigator.pushReplacement(
           context, MaterialPageRoute(builder: ((context) => const MainPage())));
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: ((context) => const MainPage())));
     } else {
       CustomAlertDialogOnlyConfirm(context, () {
-        Navigator.push(
+        Navigator.pushReplacement(
             context, MaterialPageRoute(builder: ((context) => const Login())));
       }, "Uyarı", apiResult.message!, ArtSweetAlertType.warning, "Tamam");
     }

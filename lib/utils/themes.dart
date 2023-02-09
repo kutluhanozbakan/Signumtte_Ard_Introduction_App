@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 enum APPImages {
   splashScreen,
   defaultImage,
+  turkishIcon,
+  englishIcon,
 }
 
 extension APPImagesExtension on APPImages {
@@ -14,6 +16,10 @@ extension APPImagesExtension on APPImages {
         return "lib/assets/images/ardgrup_logo.png";
       case APPImages.defaultImage:
         return "lib/assets/images/example_image.png";
+      case APPImages.turkishIcon:
+        return "lib/assets/images/icons/turkey-icon.png";
+      case APPImages.englishIcon:
+        return "lib/assets/images/icons/english-icon.png";
     }
   }
 }
