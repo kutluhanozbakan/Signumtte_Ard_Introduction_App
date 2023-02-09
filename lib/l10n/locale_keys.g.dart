@@ -47,5 +47,6 @@ abstract class  LocaleKeys {
   static const uyari = 'uyari';
   static const kayitSirasindaHataOlustu = 'kayitSirasindaHataOlustu';
   static const hataMesaji = 'hataMesaji';
+  static const email = 'email';
 
 }

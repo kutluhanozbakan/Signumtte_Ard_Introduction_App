@@ -44,5 +44,6 @@
     "kayitBasariIleEklendi": "Record saved successfully",
     "uyari": "Warning",
     "kayitSirasindaHataOlustu": "Error occured while inserting",
-    "hataMesaji": "Warning message:"
+    "hataMesaji": "Warning message:",
+    "email": "Email"
 }

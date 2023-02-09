@@ -111,7 +111,7 @@ class _LoginState extends State<Login> {
                   children: <Widget>[
                     CustomTextFormFieldContent(
                         controller: loginProvider.userName,
-                        name: "E-mail",
+                        name: LocaleKeys.email.tr(),
                         validator: formEmail,
                         isIcon: true),
                     CustomTextFormFieldContent(
